@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+* {
+	font-family: 'Merriweather', serif;
+	color: #161616;
+}
+
+body {
+	margin: 0;
+}
+
+#titleLabel {
+	font-size: 30px;
+}
+
+#subTitleLabel {
+	font-size: 12px;
+	color: #7C7E7D;
+	font-weight: 400;
+	margin-bottom: 20px;
+}
+
+.SplitLine {
+	background-color: #d1d1d1;
+	margin-bottom: 20px;
+}
+
+#pkTypesBlock {
+	font-size: 14px;
+}
+
+#pkTypesBlock > label {
+	display: block;
+	margin-bottom: 17px;
+}
+
+#pkTypesBlock > br {
+	display: none;
+}
+
+#pkTypeKSPRadioButton:last-child {
+	display: none !important;
+}
+
+#pkTypeFileRadioButton {
+	margin-bottom: 8px;
+}
+
+#pkTypeKMRadioButton {
+	margin-bottom: 20px;
+}
+
+#pkReadFileSelectButton {
+	display: none;
+}
+
+#pkReadFileButton,
+#pkReadKMButton,
+#pkInfoNextButton {
+	padding: 8px 43px;
+	border-radius: 4px;
+	border: none;
+	background: #4EAF50;
+	color: #fff;
+	cursor: pointer;
+}
+
+#pkInfoNextButton > a {
+	color: #fff;
+	font-size: 14px;
+}
+
+#pkReadFileButton[disabled],
+#pkReadKMButton[disabled] {
+	background: #9FCBA0;
+}
+
+#pkCASelectBlock,
+#pkReadFileSelectFileBlock,
+#pkReadFilePasswordBlock,
+#pkReadKMSelectBlock,
+#pkReadKMPasswordBlock,
+#pkReadFileSelectAliasBlock {
+	position: relative;
+}
+
+#pkCATitleLabel,
+#pkReadFileTitleLabel,
+#pkReadFilePasswordBlock > label,
+#pkReadKMTitleLabel,
+#pkReadFileSelectAliasBlock > label,
+#pkReadKMPasswordBlock > label {
+	position: absolute;
+	color: #7C7E7D;
+	font-size: 12px;
+	background: white;
+	top: 4px;
+	left: 10px;
+	padding: 7px;
+	display: block;
+}
+
+#pkCASelect,
+#pkReadFileTextField,
+#pkReadFilePasswordTextField,
+#pkReadKMSelect,
+#pkReadFileAliasSelect,
+#pkReadKMPasswordTextField {
+	height: 52px;
+	border: 1px solid #D1D1D1;
+	border-radius: 4px;
+	font-size: 14px;
+	padding: 10px;
+}
+
+#pkCASelectBlock:after,
+#pkReadFileSelectAliasBlock:after,
+#pkReadKMSelectBlock:after {
+	content: "";
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background: #fff;
+	top: 33px;
+	right: 4px;
+	z-index: 1;
+}
+
+#pkCASelectBlock:before,
+#pkReadFileSelectAliasBlock:before,
+#pkReadKMSelectBlock:before {
+	content: "";
+	position: absolute;
+	border: solid #7C7E7D;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 3px;
+	top: 39px;
+	right: 15px;
+	z-index: 3;
+	transform: rotate(45deg);
+}
+
+#proxyButtonBlock > .ButtonBlock {
+	text-align: left;
+}
+
+#proxyButton {
+	padding: 8px 15px;
+	border-radius: 4px;
+	background: #fff;
+	border: 1px solid #7C7E7D;
+	cursor: pointer;
+}
+
+#pkInfoBackButton {
+	padding: 8px 15px;
+	border-radius: 4px;
+	background: #fff;
+	border: 1px solid #4EAF50;
+	cursor: pointer;
+}
+
+#pkInfoBackButton a {
+	color: #4EAF50;
+	font-size: 14px;
+}
+
+.ErrorBlock > #statusLabel {
+	color: red;
+}
+
+#pkInfoButtonsBlock {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+#pkInfoButtonsBlock > div {
+	margin-left: 10px;
+}
+
+.InfoBlock {
+	border: none;
+	padding: 0;
+}
+
+#pkInfoSubjCN {
+	font-size: 20px;
+	font-weight: 400;
+	padding-bottom: 15px;
+}
+
+.Block h6 {
+	opacity: 1;
+	color: #7C7E7D;
+	font-weight: 400;
+}
+
+.Block label {
+	font-size: 14px;
+}
+
+.Block, .FlexBlock {
+	margin-bottom: 20px;
+}
+
+.FlexBlockItem {
+	margin-right: 30px;
+}
+
+#pkInfoContentBlock {
+	margin-top: 10px;
+	border-top: 1px solid #d1d1d1;
+}
+
+#pkInfoContentBlock ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+#pkInfoContentBlock ul > li {
+	border-bottom: 1px solid #d1d1d1;
+	padding: 17px 0 0 15px;
+	position: relative;
+}
+
+.InfoContentBlock {
+	padding: 15px 0 0;
+}
+
+#pkInfoContentBlock ul > li .Arrow {
+	position: absolute;
+	right: 18px;
+	top: 21px;
+}
+
+[type="radio"] {
+	transform: scale(1.5);
+	accent-color: green;
+}
+
+#proxyButtonBlock {
+	display: none !important;
+}
