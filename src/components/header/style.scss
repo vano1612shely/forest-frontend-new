@@ -1,0 +1,13 @@
+.social {
+  @apply flex;
+  &__item {
+    @apply p-[4px] flex items-center hover:bg-gray-200;
+    & img {
+      @apply w-[20px];
+    }
+  }
+
+  & .viber img{
+    @apply w-[28px];
+  }
+}

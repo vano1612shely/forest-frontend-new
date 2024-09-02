@@ -13,35 +13,101 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LayoutImport } from './routes/_layout'
+import { Route as LayoutIndexImport } from './routes/_layout/index'
 
 // Create Virtual Routes
 
-const IndexLazyImport = createFileRoute('/')()
+const LoginLazyImport = createFileRoute('/login')()
+const CustomerLoginLazyImport = createFileRoute('/customer/login')()
+const LayoutTradingTradingListLazyImport = createFileRoute(
+  '/_layout/_trading/tradingList',
+)()
 
 // Create/Update Routes
 
-const IndexLazyRoute = IndexLazyImport.update({
-  path: '/',
+const LoginLazyRoute = LoginLazyImport.update({
+  path: '/login',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const LayoutRoute = LayoutImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LayoutIndexRoute = LayoutIndexImport.update({
+  path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const CustomerLoginLazyRoute = CustomerLoginLazyImport.update({
+  path: '/customer/login',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/customer/login.lazy').then((d) => d.Route),
+)
+
+const LayoutTradingTradingListLazyRoute =
+  LayoutTradingTradingListLazyImport.update({
+    path: '/tradingList',
+    getParentRoute: () => LayoutRoute,
+  } as any).lazy(() =>
+    import('./routes/_layout/_trading/tradingList.lazy').then((d) => d.Route),
+  )
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/customer/login': {
+      id: '/customer/login'
+      path: '/customer/login'
+      fullPath: '/customer/login'
+      preLoaderRoute: typeof CustomerLoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/_layout/': {
+      id: '/_layout/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof LayoutIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/_trading/tradingList': {
+      id: '/_layout/_trading/tradingList'
+      path: '/tradingList'
+      fullPath: '/tradingList'
+      preLoaderRoute: typeof LayoutTradingTradingListLazyImport
+      parentRoute: typeof LayoutImport
     }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ IndexLazyRoute })
+export const routeTree = rootRoute.addChildren({
+  LayoutRoute: LayoutRoute.addChildren({
+    LayoutIndexRoute,
+    LayoutTradingTradingListLazyRoute,
+  }),
+  LoginLazyRoute,
+  CustomerLoginLazyRoute,
+})
 
 /* prettier-ignore-end */
 
@@ -51,11 +117,31 @@ export const routeTree = rootRoute.addChildren({ IndexLazyRoute })
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/_layout",
+        "/login",
+        "/customer/login"
       ]
     },
-    "/": {
-      "filePath": "index.lazy.tsx"
+    "/_layout": {
+      "filePath": "_layout.tsx",
+      "children": [
+        "/_layout/",
+        "/_layout/_trading/tradingList"
+      ]
+    },
+    "/login": {
+      "filePath": "login.lazy.tsx"
+    },
+    "/customer/login": {
+      "filePath": "customer/login.lazy.tsx"
+    },
+    "/_layout/": {
+      "filePath": "_layout/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/_trading/tradingList": {
+      "filePath": "_layout/_trading/tradingList.lazy.tsx",
+      "parent": "/_layout"
     }
   }
 }

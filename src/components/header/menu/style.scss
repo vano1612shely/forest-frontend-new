@@ -1,0 +1,14 @@
+.menu {
+  @apply w-full border-b;
+  &__list {
+    @apply flex;
+  }
+  &__item {
+  }
+  &__link {
+    @apply block min-w-[160px] p-[12px] text-[0.875rem] leading-[1.75] text-[#68737E];
+    &.active {
+      @apply text-green-600 border-b-2 border-green-600;
+    }
+  }
+}
