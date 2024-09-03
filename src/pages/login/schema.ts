@@ -7,5 +7,4 @@ export const loginSchema = z.object({
     message: "Введіть валідний пароль",
   }),
 });
-
 export type LoginValues = z.infer<typeof loginSchema>;

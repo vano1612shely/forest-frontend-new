@@ -15,8 +15,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { ArrowForward } from "@mui/icons-material";
+import { useAuthStore } from "@/store/auth.store.ts";
 
 export const LoginPage = () => {
+  const login = useAuthStore((state) => state.login);
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -25,7 +27,7 @@ export const LoginPage = () => {
     },
   });
   const onSubmit = (props: LoginValues) => {
-    console.log(props);
+    login(props.email, props.password);
   };
   return (
     <div className="login_bg">
