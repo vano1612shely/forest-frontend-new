@@ -11,8 +11,12 @@ export type MenuListItem = {
 
 export const menuList: MenuListItem[] = [
   {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    title: "Адміністратори",
+    link: "/adminList",
+    isExternalLink: false,
+    roles: [Roles.Administrator],
+  },
+  {
     title: "Активні Аукціони",
     link: "/tradingList",
     isExternalLink: false,

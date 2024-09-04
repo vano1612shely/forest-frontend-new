@@ -11,6 +11,7 @@ import "dayjs/locale/uk.js";
 import { Link } from "@tanstack/react-router";
 import { useAuthStore } from "@/store/auth.store.ts";
 import { Menu } from "@/components/header/menu";
+import { UserBlock } from "@/components/header/userBlock";
 dayjs.extend(localizedFormat);
 dayjs.locale("uk");
 const Header = () => {
@@ -26,7 +27,7 @@ const Header = () => {
             </Button>
           </Link>
         ) : (
-          ""
+          <UserBlock />
         )}
         <Link to="/">
           <img src={Logo} alt="logo" className="h-[50px]" />
@@ -50,7 +51,7 @@ const Header = () => {
             </li>
           </ul>
           <p className="text-[12px] text-[#68737E]">
-            Київ {currentTime && dayjs(currentTime).format("MMM D, HH:mm")}
+            {currentTime && "Київ " + dayjs(currentTime).format("MMM D, HH:mm")}
           </p>
         </div>
       </div>

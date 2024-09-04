@@ -1,30 +1,49 @@
 import { create } from "zustand";
-import { httpClient } from "@/api/api.ts";
+import { User } from "@/types/User.ts";
+import { Roles } from "@/types/Roles.ts";
 
-type State = {
+export type AuthState = {
   is_auth: boolean;
   token: string;
-  user: any;
+  user: User | null;
+  roles: Roles[];
 };
 
-type Action = {
-  login: (email: string, password: string) => void;
+export type AuthAction = {
+  login: (token: string, user: User) => void;
+  loadFromStore: () => void;
+  clear: () => void;
 };
 
-export const useAuthStore = create<State & Action>((set) => ({
+export const useAuthStore = create<AuthState & AuthAction>((set) => ({
   is_auth: false,
   token: "",
-  user: {},
-  login: async (email: string, password: string) => {
-    const res = await httpClient.login({
-      url: "/api/v1/login",
-      payload: { login: email, password: password },
-    });
-    console.log(res);
+  roles: [Roles.Anonymous],
+  user: null,
+  login: (token: string, user: User) => {
     set({
       is_auth: true,
-      token: res.result.token,
-      user: res.result.user,
+      token: token,
+      user: user,
+      roles: user.security_groups.map((i) => i.slug),
+    });
+  },
+  loadFromStore: () => {
+    if (localStorage.getItem("authResponse")) {
+      const data = JSON.parse(localStorage.getItem("authResponse") as string);
+      set({
+        is_auth: true,
+        token: data.token,
+        user: data.user,
+        roles: data.user.security_groups.map((i: any) => i.slug),
+      });
+    }
+  },
+  clear: () => {
+    set({
+      is_auth: false,
+      token: "",
+      user: null,
     });
   },
 }));

@@ -1,9 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-import {
-  LoginRequestBody,
-  LoginResponse,
-  LogoutResponse,
-} from "@/api/models/auth.ts";
+import { LoginUser } from "@/types/User.ts";
+import { useAuthStore } from "@/store/auth.store.ts";
 export interface IHttpClientRequestParameters<T> {
   url: string;
   payload?: T;
@@ -13,12 +10,8 @@ export interface IHttpClientRequestParameters<T> {
 }
 
 export interface IHttpClient {
-  login(
-    parameters: IHttpClientRequestParameters<LoginRequestBody>,
-  ): Promise<LoginResponse>;
-  logout<T>(
-    parameters: IHttpClientRequestParameters<T>,
-  ): Promise<LogoutResponse>;
+  login(parameters: IHttpClientRequestParameters<LoginUser>): Promise<any>;
+  logout(parameters: any): Promise<any>;
   get<T, U>(parameters: IHttpClientRequestParameters<T>): Promise<U>;
   post<T, U>(parameters: IHttpClientRequestParameters<T>): Promise<U>;
   patch<T, U>(parameters: IHttpClientRequestParameters<T>): Promise<U>;
@@ -54,12 +47,11 @@ class HttpClient implements IHttpClient {
       window.SIGN_DATA_BY_ESD = null;
       delete axiosInstance.defaults.headers.token;
       delete axiosInstance.defaults.headers["current-customer-serial"];
+      useAuthStore.getState().clear();
     }
   }
 
-  async login(
-    parameters: IHttpClientRequestParameters<LoginRequestBody>,
-  ): Promise<LoginResponse> {
+  async login(parameters: IHttpClientRequestParameters<LoginUser>) {
     const { url, payload } = parameters;
 
     const formData = new FormData();
@@ -84,13 +76,10 @@ class HttpClient implements IHttpClient {
     localStorage.setItem(LocalStorageAuthDataKey, JSON.stringify(data.result));
     localStorage.setItem(LocalStorageTokenKey, token);
 
-    return data;
+    return res.data;
   }
-  async logout<T>(
-    parameters: IHttpClientRequestParameters<T>,
-  ): Promise<LogoutResponse> {
+  async logout(parameters: any) {
     const { url } = parameters;
-
     const options = {
       headers: {},
     };
@@ -98,6 +87,7 @@ class HttpClient implements IHttpClient {
     const res = await axiosInstance.post(url, null, options);
     localStorage.removeItem(LocalStorageTokenKey);
     localStorage.removeItem(LocalStorageAuthDataKey);
+
     delete axiosInstance.defaults.headers.token;
     return res.data;
   }

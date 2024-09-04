@@ -5,7 +5,9 @@ export const Route = createFileRoute("/_layout")({
   component: () => (
     <>
       <Header />
-      <Outlet />
+      <section className="py-[16px] px-[24px] pt-[40px]">
+        <Outlet />
+      </section>
     </>
   ),
 });

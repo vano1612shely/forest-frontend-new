@@ -4,16 +4,8 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { appConfig } from "@/config.ts";
-// import * as Sentry from "@sentry/react";
-// import { Integrations } from "@sentry/tracing";
-// if (process.env.NODE_ENV !== "development") {
-//   Sentry.init({
-//     dsn: appConfig.SentryDSN,
-//     integrations: [new Integrations.BrowserTracing()],
-//     tracesSampleRate: 1.0,
-//   });
-// }
+import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "@/store/auth.store.ts";
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -25,7 +17,13 @@ declare global {
 }
 const queryClient = new QueryClient();
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
+    user: undefined!,
+  },
+});
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
@@ -33,13 +31,18 @@ declare module "@tanstack/react-router" {
     router: typeof router;
   }
 }
+function App() {
+  const user = useAuthStore((state) => state);
+  return <RouterProvider router={router} context={{ queryClient, user }} />;
+}
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <App />
+        <Toaster />
       </QueryClientProvider>
     </StrictMode>,
   );
