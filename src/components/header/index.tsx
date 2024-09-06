@@ -12,6 +12,7 @@ import { Link } from "@tanstack/react-router";
 import { useAuthStore } from "@/store/auth.store.ts";
 import { Menu } from "@/components/header/menu";
 import { UserBlock } from "@/components/header/userBlock";
+import { Notifications } from "@/components/header/notifications";
 dayjs.extend(localizedFormat);
 dayjs.locale("uk");
 const Header = () => {
@@ -19,20 +20,22 @@ const Header = () => {
   const is_auth = useAuthStore((state) => state.is_auth);
   return (
     <header>
-      <div className="py-3 px-10 flex justify-between items-center border-b border-[#E4E4E4]">
-        {!is_auth ? (
-          <Link to="/customer/login">
-            <Button className="text-[0.875rem] leading-[1.75] font-[500]">
-              Увійти
-            </Button>
-          </Link>
-        ) : (
-          <UserBlock />
-        )}
+      <div className="py-3 px-10 flex justify-evenly md:justify-between items-center border-b border-[#E4E4E4] flex-wrap gap-[30px]">
+        <div className="lg:w-[300px]">
+          {!is_auth ? (
+            <Link to="/customer/login">
+              <Button className="text-[0.875rem] leading-[1.75] font-[500]">
+                Увійти
+              </Button>
+            </Link>
+          ) : (
+            <UserBlock />
+          )}
+        </div>
         <Link to="/">
           <img src={Logo} alt="logo" className="h-[50px]" />
         </Link>
-        <div className="flex gap-[30px] items-center">
+        <div className="flex gap-[30px] items-center w-[300px] flex-wrap justify-evenly md:justify-normal">
           <ul className="social">
             <li className="social__item">
               <a href="/">
@@ -50,6 +53,7 @@ const Header = () => {
               </a>
             </li>
           </ul>
+          {is_auth && <Notifications />}
           <p className="text-[12px] text-[#68737E]">
             {currentTime && "Київ " + dayjs(currentTime).format("MMM D, HH:mm")}
           </p>

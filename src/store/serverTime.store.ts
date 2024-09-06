@@ -9,8 +9,11 @@ type Action = {
   fetchDateTime: () => void;
   clearDateTime: () => void;
 };
-export const useServerTimeStore = create<State & Action>((set) => ({
+const initialState: State = {
   current_datetime: null,
+};
+export const useServerTimeStore = create<State & Action>((set) => ({
+  ...initialState,
   fetchDateTime: async () => {
     try {
       const getTime = await httpClient.get<undefined, any>({

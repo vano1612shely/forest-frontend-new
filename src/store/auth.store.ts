@@ -5,6 +5,7 @@ import { Roles } from "@/types/Roles.ts";
 export type AuthState = {
   is_auth: boolean;
   token: string;
+  lang_key: "ua" | "en";
   user: User | null;
   roles: Roles[];
 };
@@ -15,11 +16,16 @@ export type AuthAction = {
   clear: () => void;
 };
 
-export const useAuthStore = create<AuthState & AuthAction>((set) => ({
+const initialState: AuthState = {
   is_auth: false,
+  lang_key: "ua",
   token: "",
   roles: [Roles.Anonymous],
   user: null,
+};
+
+export const useAuthStore = create<AuthState & AuthAction>((set) => ({
+  ...initialState,
   login: (token: string, user: User) => {
     set({
       is_auth: true,

@@ -9,13 +9,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination.tsx";
 
-export interface IAdminListPaginationProps {
+export interface IPaginationProps {
   current_page: number;
   last_page: number;
   setPage: (page: number) => void;
 }
 
-export const AdminListPagination: FC<IAdminListPaginationProps> = ({
+export const ListPagination: FC<IPaginationProps> = ({
   current_page,
   last_page,
   setPage,

@@ -1,15 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Admin } from "@/types/Admin.ts";
 import dayjs from "dayjs";
-import { UserState } from "@/types/User.ts";
-const statusName = (status: string) => {
-  switch (status) {
-    case UserState.STATUS_ACTIVE:
-      return "Активний";
-    case UserState.STATUS_NOT_CONFIRMED:
-      return "Не підтверджений";
-  }
-};
+import { getStatusName } from "@/lib/utils.ts";
 export const columns: ColumnDef<Admin>[] = [
   {
     accessorKey: "email",
@@ -26,7 +18,7 @@ export const columns: ColumnDef<Admin>[] = [
     accessorKey: "status",
     header: "Статус",
     cell: ({ row }) => {
-      return statusName(row.original.status);
+      return getStatusName(row.original.status);
     },
   },
   {

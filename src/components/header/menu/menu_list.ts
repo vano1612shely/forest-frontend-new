@@ -6,6 +6,8 @@ export type MenuListItem = {
   title: string;
   link: ParseRoute<typeof routeTree>["fullPath"] | string;
   isExternalLink?: boolean;
+  isDropDown?: boolean;
+  items?: MenuListItem[];
   roles: Roles[];
 };
 
@@ -19,6 +21,30 @@ export const menuList: MenuListItem[] = [
   {
     title: "Активні Аукціони",
     link: "/tradingList",
+    isDropDown: true,
+    items: [
+      {
+        title: "Список торгів",
+        link: "/tradingList",
+        roles: [
+          Roles.Agent,
+          Roles.Anonymous,
+          Roles.Customer,
+          Roles.Administrator,
+          Roles.Observer,
+        ],
+      },
+      {
+        title: "Непродані лоти",
+        link: "/tradingList/unsoldLots",
+        roles: [
+          Roles.Agent,
+          Roles.Customer,
+          Roles.Administrator,
+          Roles.Observer,
+        ],
+      },
+    ],
     isExternalLink: false,
     roles: [
       Roles.Agent,

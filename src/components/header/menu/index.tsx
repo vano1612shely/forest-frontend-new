@@ -1,38 +1,78 @@
-import { Link, LinkProps, ParseRoute } from "@tanstack/react-router";
-import { FC } from "react";
+import {
+  Link,
+  LinkProps,
+  ParseRoute,
+  useLocation,
+} from "@tanstack/react-router";
+import { FC, useEffect, useState } from "react";
 import { routeTree } from "@/routeTree.gen.ts";
-import { menuList } from "@/components/header/menu/menu_list.ts";
+import { menuList, MenuListItem } from "@/components/header/menu/menu_list.ts";
 import "./style.scss";
 import { cn } from "@/lib/utils.ts";
 import { useAuthStore } from "@/store/auth.store.ts";
-import { Roles } from "@/types/Roles.ts";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu.tsx";
+import _ from "lodash";
+
 interface INavItemProps extends LinkProps {
-  path: ParseRoute<typeof routeTree>["fullPath"] | string;
-  title: string;
-  roles: Roles[];
-  isExternalLink?: boolean;
+  link: MenuListItem;
 }
-export const NavItem: FC<INavItemProps> = ({
-  path,
-  title,
-  roles,
-  isExternalLink = false,
-  ...props
-}) => {
+export const NavItem: FC<INavItemProps> = ({ link, ...props }) => {
   const userRoles = useAuthStore((state) => state.roles);
-  if (userRoles.some((role) => roles.includes(role)))
-    return (
-      <li className="menu__item">
-        <Link
-          className={cn("menu__link")}
-          to={path as ParseRoute<typeof routeTree>["fullPath"]}
-          target={isExternalLink ? "_blank" : "_self"}
-          {...props}
-        >
-          {title}
-        </Link>
-      </li>
-    );
+  const location = useLocation();
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    if (_.some(link.items, (i) => i.link === location.pathname)) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, [location]);
+  if (userRoles.some((role) => link.roles.includes(role)))
+    if (link.isDropDown) {
+      return (
+        <li className="menu__item">
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className={cn("menu__link", active && "active")}
+            >
+              {link.title}
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {link.items?.map((item, index) => {
+                return (
+                  <DropdownMenuItem key={index + item.link}>
+                    <Link
+                      to={item.link as ParseRoute<typeof routeTree>["fullPath"]}
+                      target={item.isExternalLink ? "_blank" : "_self"}
+                      {...props}
+                    >
+                      {item.title}
+                    </Link>
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </li>
+      );
+    }
+  return (
+    <li className="menu__item">
+      <Link
+        className={cn("menu__link")}
+        to={link.link as ParseRoute<typeof routeTree>["fullPath"]}
+        target={link.isExternalLink ? "_blank" : "_self"}
+        {...props}
+      >
+        {link.title}
+      </Link>
+    </li>
+  );
 };
 
 export const Menu = () => {
@@ -40,15 +80,7 @@ export const Menu = () => {
     <nav className="menu">
       <ul className="menu__list">
         {menuList.map((item, index) => {
-          return (
-            <NavItem
-              key={index}
-              path={item.link}
-              title={item.title}
-              roles={item.roles}
-              isExternalLink={item.isExternalLink}
-            />
-          );
+          return <NavItem key={index} link={item} />;
         })}
       </ul>
     </nav>

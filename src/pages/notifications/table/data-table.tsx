@@ -14,24 +14,25 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils.ts";
 import { useNavigate } from "@tanstack/react-router";
+import { INotification } from "@/api/notifications/types.ts";
 import { columns } from "./columns";
-import { Admin } from "@/types/Admin.ts";
 
 interface DataTableProps {
-  data: Admin[];
+  data: INotification[];
   className?: string;
 }
-export function AdminListTable({ data, className }: DataTableProps) {
+
+export function NotificationsTable({ data, className }: DataTableProps) {
   const table = useReactTable({
-    columns,
     data,
+    columns,
     getCoreRowModel: getCoreRowModel(),
   });
   const navigate = useNavigate();
   return (
-    <div className={cn(className, "h-[600px] overflow-auto")}>
+    <div className={cn(className, "h-[600px] overflow-auto w-full")}>
       <Table className="text-center">
-        <TableHeader className="bg-green-600 sticky top-0">
+        <TableHeader className="bg-green-600 sticky top-0 border">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -60,7 +61,7 @@ export function AdminListTable({ data, className }: DataTableProps) {
                 className="cursor-pointer"
                 data-state={row.getIsSelected() && "selected"}
                 onClick={() =>
-                  navigate({ to: `/editAdmin/${row.original.id}` })
+                  !row.original.contract && navigate({ to: `/tradingList` })
                 }
               >
                 {row.getVisibleCells().map((cell) => (
