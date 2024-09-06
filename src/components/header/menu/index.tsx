@@ -1,88 +1,100 @@
 import {
-  Link,
-  LinkProps,
-  ParseRoute,
-  useLocation,
-} from "@tanstack/react-router";
-import { FC, useEffect, useState } from "react";
-import { routeTree } from "@/routeTree.gen.ts";
-import { menuList, MenuListItem } from "@/components/header/menu/menu_list.ts";
-import "./style.scss";
-import { cn } from "@/lib/utils.ts";
-import { useAuthStore } from "@/store/auth.store.ts";
+	Link,
+	LinkProps,
+	ParseRoute,
+	useLocation
+} from '@tanstack/react-router'
+import _ from 'lodash'
+import { FC, useEffect, useState } from 'react'
+
+import { MenuListItem, menuList } from '@/components/header/menu/menu_list.ts'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu.tsx";
-import _ from "lodash";
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu.tsx'
+
+import { useAuthStore } from '@/store/auth.store.ts'
+
+import './style.scss'
+import { cn } from '@/lib/utils.ts'
+import { routeTree } from '@/routeTree.gen.ts'
 
 interface INavItemProps extends LinkProps {
-  link: MenuListItem;
+	link: MenuListItem
 }
 export const NavItem: FC<INavItemProps> = ({ link, ...props }) => {
-  const userRoles = useAuthStore((state) => state.roles);
-  const location = useLocation();
-  const [active, setActive] = useState(false);
-  useEffect(() => {
-    if (_.some(link.items, (i) => i.link === location.pathname)) {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
-  }, [location]);
-  if (userRoles.some((role) => link.roles.includes(role)))
-    if (link.isDropDown) {
-      return (
-        <li className="menu__item">
-          <DropdownMenu>
-            <DropdownMenuTrigger
-              className={cn("menu__link", active && "active")}
-            >
-              {link.title}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {link.items?.map((item, index) => {
-                return (
-                  <DropdownMenuItem key={index + item.link}>
-                    <Link
-                      to={item.link as ParseRoute<typeof routeTree>["fullPath"]}
-                      target={item.isExternalLink ? "_blank" : "_self"}
-                      {...props}
-                    >
-                      {item.title}
-                    </Link>
-                  </DropdownMenuItem>
-                );
-              })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </li>
-      );
-    }
-  return (
-    <li className="menu__item">
-      <Link
-        className={cn("menu__link")}
-        to={link.link as ParseRoute<typeof routeTree>["fullPath"]}
-        target={link.isExternalLink ? "_blank" : "_self"}
-        {...props}
-      >
-        {link.title}
-      </Link>
-    </li>
-  );
-};
+	const userRoles = useAuthStore(state => state.roles)
+	const location = useLocation()
+	const [active, setActive] = useState(false)
+	useEffect(() => {
+		if (
+			link.isDropDown &&
+			_.some(link.items, i => i.link === location.pathname)
+		) {
+			setActive(true)
+		} else {
+			setActive(false)
+		}
+	}, [location])
+	if (userRoles.some(role => link.roles.includes(role))) {
+		if (link.isDropDown) {
+			return (
+				<li className='menu__item'>
+					<DropdownMenu>
+						<DropdownMenuTrigger
+							className={cn('menu__link', active && 'active')}
+						>
+							{link.title}
+						</DropdownMenuTrigger>
+						<DropdownMenuContent>
+							{link.items?.map((item, index) => {
+								return (
+									<Link
+										to={item.link as ParseRoute<typeof routeTree>['fullPath']}
+										target={item.isExternalLink ? '_blank' : '_self'}
+										{...props}
+									>
+										<DropdownMenuItem key={index + item.link}>
+											{item.title}
+										</DropdownMenuItem>
+									</Link>
+								)
+							})}
+						</DropdownMenuContent>
+					</DropdownMenu>
+				</li>
+			)
+		}
+	}
+	return (
+		<li className='menu__item'>
+			<Link
+				className={cn('menu__link')}
+				to={link.link as ParseRoute<typeof routeTree>['fullPath']}
+				target={link.isExternalLink ? '_blank' : '_self'}
+				{...props}
+			>
+				{link.title}
+			</Link>
+		</li>
+	)
+}
 
 export const Menu = () => {
-  return (
-    <nav className="menu">
-      <ul className="menu__list">
-        {menuList.map((item, index) => {
-          return <NavItem key={index} link={item} />;
-        })}
-      </ul>
-    </nav>
-  );
-};
+	return (
+		<nav className='menu'>
+			<ul className='menu__list'>
+				{menuList.map((item, index) => {
+					return (
+						<NavItem
+							key={index}
+							link={item}
+						/>
+					)
+				})}
+			</ul>
+		</nav>
+	)
+}
