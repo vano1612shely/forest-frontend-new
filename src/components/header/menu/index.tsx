@@ -52,13 +52,12 @@ export const NavItem: FC<INavItemProps> = ({ link, ...props }) => {
 							{link.items?.map((item, index) => {
 								return (
 									<Link
+										key={index + item.link}
 										to={item.link as ParseRoute<typeof routeTree>['fullPath']}
 										target={item.isExternalLink ? '_blank' : '_self'}
 										{...props}
 									>
-										<DropdownMenuItem key={index + item.link}>
-											{item.title}
-										</DropdownMenuItem>
+										<DropdownMenuItem>{item.title}</DropdownMenuItem>
 									</Link>
 								)
 							})}
