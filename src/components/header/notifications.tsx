@@ -65,7 +65,10 @@ export const Notifications = () => {
 							)
 						else
 							return (
-								<DropdownMenuItem className='flex gap-2 items-center'>
+								<DropdownMenuItem
+									className='flex gap-2 items-center'
+									key={message.id}
+								>
 									<EventNoteIcon
 										className='text-[#68737E]'
 										fontSize='small'

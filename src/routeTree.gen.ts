@@ -16,10 +16,14 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutAuthImport } from './routes/_layout/_auth'
+import { Route as LayoutAuthOrganizationsImport } from './routes/_layout/_auth/organizations'
 import { Route as LayoutAuthNotificationsImport } from './routes/_layout/_auth/notifications'
 import { Route as LayoutAuthAdminsImport } from './routes/_layout/_auth/_admins'
+import { Route as LayoutAuthOrganizationsIndexImport } from './routes/_layout/_auth/organizations/index'
+import { Route as LayoutAuthOrganizationsCreateImport } from './routes/_layout/_auth/organizations/create'
 import { Route as LayoutAuthAdminsCreateAdminImport } from './routes/_layout/_auth/_admins/createAdmin'
 import { Route as LayoutAuthAdminsAdminListImport } from './routes/_layout/_auth/_admins/adminList'
+import { Route as LayoutAuthOrganizationsEditOrgIdImport } from './routes/_layout/_auth/organizations/edit/$orgId'
 import { Route as LayoutAuthAdminsEditAdminUserIdImport } from './routes/_layout/_auth/_admins/editAdmin/$userId'
 
 // Create Virtual Routes
@@ -51,7 +55,7 @@ const CustomerLoginLazyRoute = CustomerLoginLazyImport.update({
   path: '/customer/login',
   getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/customer/login.lazy').then((d) => d.Route),
+  import('./routes/customer.login.lazy').then((d) => d.Route),
 )
 
 const LayoutAuthRoute = LayoutAuthImport.update({
@@ -67,6 +71,11 @@ const LayoutTradingTradingListLazyRoute =
     import('./routes/_layout/_trading/tradingList.lazy').then((d) => d.Route),
   )
 
+const LayoutAuthOrganizationsRoute = LayoutAuthOrganizationsImport.update({
+  path: '/organizations',
+  getParentRoute: () => LayoutAuthRoute,
+} as any)
+
 const LayoutAuthNotificationsRoute = LayoutAuthNotificationsImport.update({
   path: '/notifications',
   getParentRoute: () => LayoutAuthRoute,
@@ -76,6 +85,18 @@ const LayoutAuthAdminsRoute = LayoutAuthAdminsImport.update({
   id: '/_admins',
   getParentRoute: () => LayoutAuthRoute,
 } as any)
+
+const LayoutAuthOrganizationsIndexRoute =
+  LayoutAuthOrganizationsIndexImport.update({
+    path: '/',
+    getParentRoute: () => LayoutAuthOrganizationsRoute,
+  } as any)
+
+const LayoutAuthOrganizationsCreateRoute =
+  LayoutAuthOrganizationsCreateImport.update({
+    path: '/create',
+    getParentRoute: () => LayoutAuthOrganizationsRoute,
+  } as any)
 
 const LayoutAuthAdminsCreateAdminRoute =
   LayoutAuthAdminsCreateAdminImport.update({
@@ -87,6 +108,12 @@ const LayoutAuthAdminsAdminListRoute = LayoutAuthAdminsAdminListImport.update({
   path: '/adminList',
   getParentRoute: () => LayoutAuthAdminsRoute,
 } as any)
+
+const LayoutAuthOrganizationsEditOrgIdRoute =
+  LayoutAuthOrganizationsEditOrgIdImport.update({
+    path: '/edit/$orgId',
+    getParentRoute: () => LayoutAuthOrganizationsRoute,
+  } as any)
 
 const LayoutAuthAdminsEditAdminUserIdRoute =
   LayoutAuthAdminsEditAdminUserIdImport.update({
@@ -147,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAuthNotificationsImport
       parentRoute: typeof LayoutAuthImport
     }
+    '/_layout/_auth/organizations': {
+      id: '/_layout/_auth/organizations'
+      path: '/organizations'
+      fullPath: '/organizations'
+      preLoaderRoute: typeof LayoutAuthOrganizationsImport
+      parentRoute: typeof LayoutAuthImport
+    }
     '/_layout/_trading/tradingList': {
       id: '/_layout/_trading/tradingList'
       path: '/tradingList'
@@ -168,12 +202,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAuthAdminsCreateAdminImport
       parentRoute: typeof LayoutAuthAdminsImport
     }
+    '/_layout/_auth/organizations/create': {
+      id: '/_layout/_auth/organizations/create'
+      path: '/create'
+      fullPath: '/organizations/create'
+      preLoaderRoute: typeof LayoutAuthOrganizationsCreateImport
+      parentRoute: typeof LayoutAuthOrganizationsImport
+    }
+    '/_layout/_auth/organizations/': {
+      id: '/_layout/_auth/organizations/'
+      path: '/'
+      fullPath: '/organizations/'
+      preLoaderRoute: typeof LayoutAuthOrganizationsIndexImport
+      parentRoute: typeof LayoutAuthOrganizationsImport
+    }
     '/_layout/_auth/_admins/editAdmin/$userId': {
       id: '/_layout/_auth/_admins/editAdmin/$userId'
       path: '/editAdmin/$userId'
       fullPath: '/editAdmin/$userId'
       preLoaderRoute: typeof LayoutAuthAdminsEditAdminUserIdImport
       parentRoute: typeof LayoutAuthAdminsImport
+    }
+    '/_layout/_auth/organizations/edit/$orgId': {
+      id: '/_layout/_auth/organizations/edit/$orgId'
+      path: '/edit/$orgId'
+      fullPath: '/organizations/edit/$orgId'
+      preLoaderRoute: typeof LayoutAuthOrganizationsEditOrgIdImport
+      parentRoute: typeof LayoutAuthOrganizationsImport
     }
   }
 }
@@ -189,6 +244,11 @@ export const routeTree = rootRoute.addChildren({
         LayoutAuthAdminsEditAdminUserIdRoute,
       }),
       LayoutAuthNotificationsRoute,
+      LayoutAuthOrganizationsRoute: LayoutAuthOrganizationsRoute.addChildren({
+        LayoutAuthOrganizationsCreateRoute,
+        LayoutAuthOrganizationsIndexRoute,
+        LayoutAuthOrganizationsEditOrgIdRoute,
+      }),
     }),
     LayoutIndexRoute,
     LayoutTradingTradingListLazyRoute,
@@ -226,11 +286,12 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/_layout",
       "children": [
         "/_layout/_auth/_admins",
-        "/_layout/_auth/notifications"
+        "/_layout/_auth/notifications",
+        "/_layout/_auth/organizations"
       ]
     },
     "/customer/login": {
-      "filePath": "customer/login.lazy.tsx"
+      "filePath": "customer.login.lazy.tsx"
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
@@ -249,6 +310,15 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/_auth/notifications.tsx",
       "parent": "/_layout/_auth"
     },
+    "/_layout/_auth/organizations": {
+      "filePath": "_layout/_auth/organizations.tsx",
+      "parent": "/_layout/_auth",
+      "children": [
+        "/_layout/_auth/organizations/create",
+        "/_layout/_auth/organizations/",
+        "/_layout/_auth/organizations/edit/$orgId"
+      ]
+    },
     "/_layout/_trading/tradingList": {
       "filePath": "_layout/_trading/tradingList.lazy.tsx",
       "parent": "/_layout"
@@ -261,9 +331,21 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "_layout/_auth/_admins/createAdmin.tsx",
       "parent": "/_layout/_auth/_admins"
     },
+    "/_layout/_auth/organizations/create": {
+      "filePath": "_layout/_auth/organizations/create.tsx",
+      "parent": "/_layout/_auth/organizations"
+    },
+    "/_layout/_auth/organizations/": {
+      "filePath": "_layout/_auth/organizations/index.tsx",
+      "parent": "/_layout/_auth/organizations"
+    },
     "/_layout/_auth/_admins/editAdmin/$userId": {
       "filePath": "_layout/_auth/_admins/editAdmin/$userId.tsx",
       "parent": "/_layout/_auth/_admins"
+    },
+    "/_layout/_auth/organizations/edit/$orgId": {
+      "filePath": "_layout/_auth/organizations/edit/$orgId.tsx",
+      "parent": "/_layout/_auth/organizations"
     }
   }
 }

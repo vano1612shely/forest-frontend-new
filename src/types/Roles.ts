@@ -1,23 +1,27 @@
 export enum Roles {
-  Administrator = "GROUP_ADMINISTRATORS",
-  Customer = "GROUP_PARTICIPANTS",
-  Agent = "GROUP_AGENTS",
-  Observer = "GROUP_OBSERVERS",
-  Anonymous = "GROUP_ANONYMOUS",
+	Administrator = 'GROUP_ADMINISTRATORS',
+	Customer = 'GROUP_PARTICIPANTS',
+	Agent = 'GROUP_AGENTS',
+	Observer = 'GROUP_OBSERVERS',
+	Anonymous = 'GROUP_ANONYMOUS'
 }
-
+export interface SecurityRole {
+	id: string
+	role_slug: string
+}
 export interface ISecurityGroup {
-  id: string;
-  is_editable: boolean;
-  slug: Roles;
-  title: [
-    {
-      description: string;
-      id: string;
-      language: {
-        lang_key: string;
-      };
-      title: string;
-    },
-  ];
+	id: string
+	is_editable: boolean
+	slug: Roles
+	title: [
+		{
+			description: string
+			id: string
+			language: {
+				lang_key: string
+			}
+			title: string
+		}
+	]
+	security_roles: SecurityRole[]
 }

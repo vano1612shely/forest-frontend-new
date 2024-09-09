@@ -1,33 +1,39 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowBackIos } from '@mui/icons-material/'
-import { Link } from '@tanstack/react-router'
+import { useMutation } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
-import { Button } from '@/components/ui/button.tsx'
+import { LeaveFromPageDialog } from '@/components/leaveFromPageDialog.tsx'
 import { Card } from '@/components/ui/card.tsx'
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger
-} from '@/components/ui/dialog'
 
-import { CreateAdminForm } from '@/pages/admins/createAdmin/form.tsx'
-import {
-	CreateAdminValues,
-	createAdminSchema
-} from '@/pages/admins/createAdmin/schema.ts'
+import { createAdmin } from '@/api/admin'
+import { CreateAdminRequestBody } from '@/api/admin/types.ts'
+
+import { CreateAdminForm } from './form.tsx'
+import { createAdminSchema } from './schema.ts'
 
 export const CreateAdminPage = () => {
-	const form = useForm<CreateAdminValues>({
+	const navigate = useNavigate()
+	const { mutate } = useMutation({
+		mutationKey: ['createAdmin'],
+		mutationFn: (props: CreateAdminRequestBody) => createAdmin(props),
+		onSuccess: () => {
+			toast.success('Користувач успішно створений')
+			navigate({ to: '/adminList' })
+		},
+		onError: error => {
+			if (axios.isAxiosError(error)) {
+				toast.error(error?.response?.data?.message || error.message)
+			}
+		}
+	})
+	const form = useForm<CreateAdminRequestBody>({
 		resolver: zodResolver(createAdminSchema),
 		defaultValues: {
 			first_name: '',
-			second_name: '',
+			last_name: '',
 			email: '',
 			password: '',
 			phones: [' '],
@@ -35,41 +41,20 @@ export const CreateAdminPage = () => {
 			description: ''
 		}
 	})
-	const onSubmit = (props: CreateAdminValues) => {
-		console.log(props)
+	const onSubmit = (props: CreateAdminRequestBody) => {
+		props.phones.map((phone, index) => {
+			props.phones[index] = phone.replaceAll(' ', '')
+		})
+		mutate(props)
 	}
 	return (
 		<>
-			<Dialog>
-				<DialogTrigger asChild>
-					<Button className='flex items-center gap-2 mb-5'>
-						<ArrowBackIos fontSize='small' /> Назад
-					</Button>
-				</DialogTrigger>
-				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>Будь ласка, підтвердіть дію!</DialogTitle>
-					</DialogHeader>
-					<DialogDescription className='text-[#1D1D1D]'>
-						Увага! Усі незбереженні данні будуть втрачені. Ви впевнені, що
-						бажаєте вийти зі сторінки?
-					</DialogDescription>
-					<DialogFooter>
-						<DialogClose asChild>
-							<Button variant='outline'>Відмінити</Button>
-						</DialogClose>
-						<DialogClose asChild>
-							<Link to='/adminList'>
-								<Button>Покинути сторінку</Button>
-							</Link>
-						</DialogClose>
-					</DialogFooter>
-				</DialogContent>
-			</Dialog>
+			<LeaveFromPageDialog to='/adminList' />
 			<h1 className='pageTitle'>Створити адміністратора</h1>
 			<Card className='w-full p-10'>
 				<h3 className='text-center mb-5'>Загальна інформація</h3>
 				<CreateAdminForm
+					type='create'
 					form={form}
 					onSubmit={onSubmit}
 				/>

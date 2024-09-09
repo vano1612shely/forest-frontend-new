@@ -4,7 +4,7 @@ export const createAdminSchema = z.object({
 	first_name: z.string().min(2, {
 		message: "Введіть ім'я"
 	}),
-	second_name: z.string().min(2, {
+	last_name: z.string().min(2, {
 		message: 'Введіть прізвище'
 	}),
 	email: z.string().email({
@@ -17,7 +17,7 @@ export const createAdminSchema = z.object({
 		message: 'Виберіть роль'
 	}),
 	phones: z.array(
-		z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Введіть валідний номер телефону')
+		z.string().regex(/^\+\d{2} \d{4} \d{6}$/, 'Введіть валідний номер телефону')
 	),
 	description: z.string().optional()
 })

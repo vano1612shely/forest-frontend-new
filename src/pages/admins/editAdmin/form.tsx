@@ -13,23 +13,16 @@ import {
 	FormMessage
 } from '@/components/ui/form.tsx'
 import { Input } from '@/components/ui/input.tsx'
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue
-} from '@/components/ui/select.tsx'
 import { Separator } from '@/components/ui/separator.tsx'
 
-import { CreateAdminValues } from '@/pages/admins/createAdmin/schema.ts'
+import { UpdateAdminValues } from './schema.ts'
 
-export const CreateAdminForm = ({
+export const EditAdminForm = ({
 	form,
 	onSubmit
 }: {
-	form: UseFormReturn<CreateAdminValues>
-	onSubmit: (props: CreateAdminValues) => void
+	form: UseFormReturn<UpdateAdminValues>
+	onSubmit: (props: UpdateAdminValues) => void
 	type: 'create' | 'update'
 }) => {
 	const phones = useFieldArray({
@@ -41,6 +34,7 @@ export const CreateAdminForm = ({
 	return (
 		<Form {...form}>
 			<form
+				onChange={() => console.log(form.getValues())}
 				onSubmit={form.handleSubmit(onSubmit)}
 				className='grid gap-5'
 			>
@@ -97,50 +91,6 @@ export const CreateAdminForm = ({
 					/>
 					<FormField
 						control={form.control}
-						name='role'
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Роль</FormLabel>
-								<FormControl>
-									<Select
-										onValueChange={value => field.onChange(value)}
-										value={field.value}
-									>
-										<SelectTrigger
-											className='w-full'
-											id='admin_filters_status'
-										>
-											<SelectValue placeholder='Роль' />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectItem value={'ADMIN'}>Адміністратор</SelectItem>
-											<SelectItem value={'OBSERVER'}>Спостерігач</SelectItem>
-										</SelectContent>
-									</Select>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
-						name='password'
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Пароль</FormLabel>
-								<FormControl>
-									<Input
-										type='password'
-										autoComplete='new-password'
-										{...field}
-									/>
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-					<FormField
-						control={form.control}
 						name='description'
 						render={({ field }) => (
 							<FormItem>
@@ -155,12 +105,23 @@ export const CreateAdminForm = ({
 							</FormItem>
 						)}
 					/>
-					<div className='grid gap-5'>
+					<div>
+						{phones.fields.length === 0 && (
+							<Button
+								type='button'
+								variant='ghost'
+								className='flex gap-2 items-center'
+								onClick={() => phones.append({ phone: '' })}
+							>
+								Додати номер телефону
+								<AddIcon />
+							</Button>
+						)}
 						{phones.fields.map((phone, index) => (
 							<FormField
 								control={form.control}
 								key={phone.id}
-								name={`phones.${index}`}
+								name={`phones.${index}.phone`}
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Телефон {index + 1}</FormLabel>
@@ -169,7 +130,7 @@ export const CreateAdminForm = ({
 												<Input
 													className='flex-1'
 													type='text'
-													ref={withMask('+38 0999 999999')}
+													ref={withMask('+9{2} 9999 999999')}
 													value={field.value}
 													onChange={e => {
 														field.onChange(e.target.value)
@@ -178,7 +139,7 @@ export const CreateAdminForm = ({
 												<Button
 													type='button'
 													variant='ghost'
-													onClick={() => phones.append(' ')}
+													onClick={() => phones.append({ phone: '' })}
 												>
 													<AddIcon />
 												</Button>

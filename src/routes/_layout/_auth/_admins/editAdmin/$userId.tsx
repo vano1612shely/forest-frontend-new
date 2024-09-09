@@ -1,6 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { EditAdminPage } from "@/pages/admins/editAdmin";
+import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/_layout/_auth/_admins/editAdmin/$userId")({
-  component: () => <EditAdminPage />,
-});
+import { EditAdminPage } from '@/pages/admins/editAdmin'
+
+export const Route = createFileRoute(
+	'/_layout/_auth/_admins/editAdmin/$userId'
+)({
+	component: () => <EditAdminPage />
+})

@@ -31,6 +31,6 @@ export const notificationPageOptions = (
 	params: IGetNotificationsListParams | null = null
 ) =>
 	queryOptions({
-		queryKey: ['notifications', params?.page],
+		queryKey: ['notifications', params?.page || 1],
 		queryFn: () => fetchNotifications(params)
 	})

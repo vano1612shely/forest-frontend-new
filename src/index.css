@@ -64,6 +64,10 @@
   font-family: "Merriweather", serif !important;
 }
 
+#root {
+  @apply flex flex-col min-h-screen;
+}
+
 .pageTitle {
-  @apply text-center text-[#1D1D1D] text-[32px] font-bold leading-[40px] mb-[30px]
+  @apply text-center text-[#1D1D1D] text-[32px] font-bold leading-[40px] mb-[30px];
 }
