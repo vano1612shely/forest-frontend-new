@@ -1,75 +1,100 @@
-import { Add } from '@mui/icons-material'
-import { Card } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useRouter, useSearch } from '@tanstack/react-router'
+import { Row, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import _ from 'lodash'
+import { Plus } from 'lucide-react'
 import { useEffect } from 'react'
 
+import { ColumnVisibility } from '@/components/columnVisibility.tsx'
+import { LimitSelector } from '@/components/limitSelector.tsx'
 import { ListPagination } from '@/components/pagination.tsx'
+import { StandartTable } from '@/components/standartTable.tsx'
 import { Button } from '@/components/ui/button.tsx'
+import { Card } from '@/components/ui/card.tsx'
 import { Skeleton } from '@/components/ui/skeleton.tsx'
 
 import { adminListQueryOptions } from '@/api/admin'
 
+import { columns } from '@/pages/admins/adminList/columns.tsx'
 import { AdminFilters } from '@/pages/admins/adminList/filters.tsx'
-import { AdminListTable } from '@/pages/admins/adminList/table/data-table.tsx'
 
 export const AdminListPage = () => {
-	const { page, search, status } = useSearch({ strict: false }) as any
+	const search = useSearch({ strict: false }) as any
 	const { navigate } = useRouter()
 	const { data, refetch, isLoading } = useQuery(
 		adminListQueryOptions({
-			page: page,
-			filters: [{ status, is_deleted: 0 }],
-			search: search
+			limit: search.limit || 300,
+			page: search.page,
+			filters: [{ status: search.status, is_deleted: 0 }],
+			search: search.search
 		})
 	)
+	const table = useReactTable({
+		columns,
+		data: data?.result.result || [],
+		getCoreRowModel: getCoreRowModel()
+	})
 	const setPage = (page: number) => {
 		navigate({
 			search: {
+				...search,
 				page: page
 			}
 		})
 	}
 	useEffect(() => {
 		refetch()
-	}, [search, status])
+	}, [search])
 	return (
 		<>
-			<h1 className='pageTitle'>Управління адміністраторами</h1>
-			<div className='flex flex-col lg:flex-row gap-5 items-start'>
-				<Card className='p-5 order-1 lg:order-0 lg:basis-5/6 self-stretch'>
-					<div className='flex justify-between mb-5'>
-						<div>
-							{isLoading && <Skeleton className='w-[300px] h-[50px]' />}
-							{data && (
-								<ListPagination
-									current_page={data.result.current_page}
-									last_page={data.result.last_page}
-									setPage={setPage}
-								/>
-							)}
-						</div>
-						<Link to='/createAdmin'>
+			<div className='page__container'>
+				<Card className='page__table-card'>
+					<div className='page__table-header'>
+						<h1 className='page__title'>Управління адміністраторами</h1>
+						<Link to='/admins/create'>
 							<Button className='flex items-center gap-2'>
-								Створити Адміністратора <Add />
+								Створити Адміністратора <Plus />
 							</Button>
 						</Link>
 					</div>
 					{isLoading && <Skeleton className='w-full h-[600px]' />}
-					{data && <AdminListTable data={data.result.result} />}
+					{data && (
+						<StandartTable
+							table={table}
+							columns={columns}
+							rowOnClick={(row: Row<any>) =>
+								navigate({ to: `/admins/${row.original.id}` })
+							}
+						/>
+					)}
+					<div className='page__table-pagination'>
+						{isLoading && <Skeleton className='w-[300px] h-[50px]' />}
+						{data && (
+							<>
+								<div className='flex'>
+									<ListPagination
+										current_page={data.result.current_page}
+										last_page={data.result.last_page}
+										setPage={setPage}
+									/>
+								</div>
+								<div className='flex gap-5 items-center'>
+									<ColumnVisibility table={table} />
+									<LimitSelector
+										value={search.limit || data.result.per_page}
+										setValue={value =>
+											navigate({
+												search: { ...search, limit: value }
+											})
+										}
+									/>
+								</div>
+							</>
+						)}
+					</div>
 				</Card>
-				<Card className='order-0 self-stretch lg:self-auto lg:order-1 lg:basis-1/6 p-5'>
-					<AdminFilters
-						submitFilters={filters => {
-							const searchParams = _.mapValues(filters, value => {
-								if (value) return value.toString()
-							})
-							navigate({
-								search: searchParams
-							})
-						}}
-					/>
+				<Card className='page__filter-card'>
+					<AdminFilters />
 				</Card>
 			</div>
 		</>

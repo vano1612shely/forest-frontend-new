@@ -1,4 +1,4 @@
-import { useSearch } from '@tanstack/react-router'
+import { useRouter, useSearch } from '@tanstack/react-router'
 import _ from 'lodash'
 import { useState } from 'react'
 
@@ -25,17 +25,24 @@ type AdminFiltersType = {
 	status?: string
 }
 
-export const OrganizationsFilters = ({
-	submitFilters
-}: {
-	submitFilters: (filters: AdminFiltersType) => void
-}) => {
-	const { search, usreou, status } = useSearch({ strict: false }) as any
-
+export const OrganizationsFilters = () => {
+	const search = useSearch({ strict: false }) as any
+	const { navigate } = useRouter()
+	const submitFilters = () => {
+		const searchParams = _.mapValues(values, value => {
+			if (value) return value.toString()
+		})
+		navigate({
+			search: {
+				...search,
+				...searchParams
+			}
+		})
+	}
 	const [values, setValues] = useState<AdminFiltersType>({
-		search: search || '',
-		usreou: usreou || '',
-		status: status || ''
+		search: search.search || '',
+		usreou: search.usreou || '',
+		status: search.status || ''
 	})
 
 	return (
@@ -50,11 +57,11 @@ export const OrganizationsFilters = ({
 					<form
 						onSubmit={e => {
 							e.preventDefault()
-							submitFilters(values)
+							submitFilters()
 						}}
-						className='flex flex-col gap-5 p-2'
+						className='filters__form'
 					>
-						<div className='flex flex-col gap-2'>
+						<div className='filters__row'>
 							<Label htmlFor={'organizations_filters_search'}>
 								Найменування
 							</Label>
@@ -70,7 +77,7 @@ export const OrganizationsFilters = ({
 								}
 							/>
 						</div>
-						<div className='flex flex-col gap-2'>
+						<div className='filters__row'>
 							<Label htmlFor={'organizations_filters_usreou'}>ЄДРПОУ</Label>
 							<Input
 								id='organizations_filters_usreou'
@@ -84,8 +91,10 @@ export const OrganizationsFilters = ({
 								}
 							/>
 						</div>
-						<div className='flex flex-col gap-2'>
-							<Label htmlFor={'admin_filters_status'}>Акредитація</Label>
+						<div className='filters__row'>
+							<Label htmlFor={'organizations_filters_status'}>
+								Акредитація
+							</Label>
 							<Select
 								onValueChange={value =>
 									setValues(prevState => ({
@@ -97,7 +106,7 @@ export const OrganizationsFilters = ({
 							>
 								<SelectTrigger
 									className='w-full'
-									id='admin_filters_status'
+									id='organizations_filters_status'
 								>
 									<SelectValue placeholder='Всі' />
 								</SelectTrigger>
@@ -109,22 +118,25 @@ export const OrganizationsFilters = ({
 								</SelectContent>
 							</Select>
 						</div>
-						<div className='flex justify-between gap-2'>
+						<div className='filters__buttons-group'>
 							<Button
 								variant='outline'
-								className='flex-1'
+								className='filters__button'
 								type='submit'
 								onClick={() => {
 									setValues({
 										search: '',
 										usreou: ''
 									})
+									navigate({
+										search: { limit: search.limit }
+									})
 								}}
 							>
 								Скинути
 							</Button>
 							<Button
-								className='flex-1'
+								className='filters__button'
 								type='submit'
 							>
 								Застосувати

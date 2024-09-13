@@ -21,7 +21,7 @@ export const CreateAdminPage = () => {
 		mutationFn: (props: CreateAdminRequestBody) => createAdmin(props),
 		onSuccess: () => {
 			toast.success('Користувач успішно створений')
-			navigate({ to: '/adminList' })
+			navigate({ to: '/admins' })
 		},
 		onError: error => {
 			if (axios.isAxiosError(error)) {
@@ -49,9 +49,11 @@ export const CreateAdminPage = () => {
 	}
 	return (
 		<>
-			<LeaveFromPageDialog to='/adminList' />
-			<h1 className='pageTitle'>Створити адміністратора</h1>
-			<Card className='w-full p-10'>
+			<LeaveFromPageDialog to='/admins' />
+			<Card className='page__table-card-full-size'>
+				<div className='page__table-header'>
+					<h1 className='page__title'>Створити адміністратора</h1>
+				</div>
 				<h3 className='text-center mb-5'>Загальна інформація</h3>
 				<CreateAdminForm
 					type='create'

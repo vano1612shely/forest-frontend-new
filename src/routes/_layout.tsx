@@ -6,7 +6,10 @@ export const Route = createFileRoute('/_layout')({
 	component: () => (
 		<>
 			<Header />
-			<section className='py-[16px] px-[24px] pt-[40px] bg-[#F5F5F5] flex-1'>
+			<section
+				className='py-[16px] px-[24px] pt-[40px] bg-muted
+			 flex-1'
+			>
 				<Outlet />
 			</section>
 		</>

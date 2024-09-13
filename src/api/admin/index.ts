@@ -30,7 +30,7 @@ export const fetchAdminList = async (params: IUserListParams | null = null) => {
 }
 export const adminListQueryOptions = (params: IUserListParams | null = null) =>
 	queryOptions({
-		queryKey: ['adminList', params?.page || 1],
+		queryKey: ['adminList', params],
 		queryFn: () => fetchAdminList(params)
 	})
 

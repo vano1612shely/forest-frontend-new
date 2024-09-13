@@ -1,5 +1,4 @@
-import AddIcon from '@mui/icons-material/Add'
-import DeleteIcon from '@mui/icons-material/Delete'
+import { Plus, Trash } from 'lucide-react'
 import { UseFormReturn, useFieldArray } from 'react-hook-form'
 import { withMask } from 'use-mask-input'
 
@@ -114,7 +113,7 @@ export const EditAdminForm = ({
 								onClick={() => phones.append({ phone: '' })}
 							>
 								Додати номер телефону
-								<AddIcon />
+								<Plus />
 							</Button>
 						)}
 						{phones.fields.map((phone, index) => (
@@ -141,14 +140,14 @@ export const EditAdminForm = ({
 													variant='ghost'
 													onClick={() => phones.append({ phone: '' })}
 												>
-													<AddIcon />
+													<Plus />
 												</Button>
 												{phones.fields.length > 1 && (
 													<Button
 														variant='ghost'
 														onClick={() => phones.remove(index)}
 													>
-														<DeleteIcon />
+														<Trash />
 													</Button>
 												)}
 											</div>

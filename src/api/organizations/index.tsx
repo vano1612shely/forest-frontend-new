@@ -25,7 +25,7 @@ export const organizationListOptions = (
 	params: IOrganizationsListParams | null = null
 ) =>
 	queryOptions({
-		queryKey: ['organizationsList', params?.page || 1, params?.filters],
+		queryKey: ['organizationsList', params],
 		queryFn: () => fetchOrganizationsList(params)
 	})
 

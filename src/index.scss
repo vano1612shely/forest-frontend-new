@@ -1,0 +1,138 @@
+@import url('./assets/fonts/Merriweather/stylesheet.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root  {
+    --background: 142 100% 99%;
+    --foreground: 142 5% 10%;
+    --card: 142 50% 99%;
+    --card-foreground: 142 5% 15%;
+    --popover: 142 100% 99%;
+    --popover-foreground: 142 100% 10%;
+    --primary: 142 76.2% 36.3%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 142 30% 90%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 104 30% 95%;
+    --muted-foreground: 142 5% 40%;
+    --accent: 104 30% 90%;
+    --accent-foreground: 142 5% 15%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 142 5% 99%;
+    --border: 142 30% 82%;
+    --input: 142 30% 50%;
+    --ring: 142 76.2% 36.3%;
+    --radius: 0.5rem;
+  }
+  .dark  {
+    --background: 142 50% 10%;
+    --foreground: 142 5% 99%;
+    --card: 142 50% 10%;
+    --card-foreground: 142 5% 99%;
+    --popover: 142 50% 5%;
+    --popover-foreground: 142 5% 99%;
+    --primary: 142 76.2% 36.3%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 142 30% 20%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 104 30% 25%;
+    --muted-foreground: 142 5% 65%;
+    --accent: 104 30% 25%;
+    --accent-foreground: 142 5% 95%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 142 5% 99%;
+    --border: 142 30% 50%;
+    --input: 142 30% 50%;
+    --ring: 142 76.2% 36.3%;
+    --radius: 0.5rem;
+  }
+
+}
+
+* {
+  font-family: "Merriweather", serif !important;
+  @apply border-border box-border;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  padding: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: gray;
+  border-radius: 10px;
+}
+#root {
+  @apply flex flex-col min-h-screen;
+}
+.table__row:hover {
+  @apply bg-secondary;
+}
+.table__row:hover > .table__cell {
+  @apply bg-secondary;
+}
+
+.table__row[data-state='selected'] > .table__cell {
+  @apply bg-muted;
+}
+
+.table__row[data-state='selected'] {
+  @apply bg-muted;
+}
+
+.filters {
+  &__form {
+    @apply flex flex-col gap-5 p-2;
+  }
+  &__row {
+    @apply flex flex-col gap-2;
+  }
+  &__buttons-group {
+    @apply flex justify-between gap-2 flex-wrap;
+  }
+  &__button {
+    @apply flex-1;
+  }
+}
+
+.page {
+  &__container {
+    @apply flex flex-col lg:flex-row gap-5 items-start max-w-[100vw];
+  }
+  &__table {
+    &-card {
+      @apply p-5 order-2 lg:order-1 lg:w-[clamp(70%_,_80%_,_85%)] self-stretch;
+    }
+    &-card-full-size {
+      @apply p-5 order-2 lg:order-1 w-full self-stretch;
+    }
+    &-header {
+      @apply flex justify-between mb-5 flex-wrap gap-5;
+    }
+    &-pagination {
+      @apply pt-5 flex justify-between w-full items-center;
+    }
+  }
+  &__title {
+    @apply text-foreground text-[32px] font-bold leading-[40px];
+  }
+  &__filter {
+    &-card {
+      @apply order-1 self-stretch lg:self-auto lg:order-2 lg:w-[clamp(15%_,_20%_,_30%)] p-5;
+    }
+  }
+}
+
+.tableWrapper {
+  @apply h-[600px] overflow-auto w-full;
+}

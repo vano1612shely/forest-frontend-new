@@ -50,35 +50,41 @@ export const NavItem: FC<INavItemProps> = ({ link, ...props }) => {
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
 							{link.items?.map((item, index) => {
-								return (
-									<Link
-										key={index + item.link}
-										to={item.link as ParseRoute<typeof routeTree>['fullPath']}
-										target={item.isExternalLink ? '_blank' : '_self'}
-										{...props}
-									>
-										<DropdownMenuItem>{item.title}</DropdownMenuItem>
-									</Link>
-								)
+								if (userRoles.some(role => item.roles.includes(role)))
+									return (
+										<Link
+											key={index + item.link}
+											/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+											// @ts-expect-error
+											to={item.link as ParseRoute<typeof routeTree>['fullPath']}
+											target={item.isExternalLink ? '_blank' : '_self'}
+											{...props}
+										>
+											<DropdownMenuItem>{item.title}</DropdownMenuItem>
+										</Link>
+									)
 							})}
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</li>
 			)
 		}
+
+		return (
+			<li className='menu__item'>
+				<Link
+					className={cn('menu__link')}
+					/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+					// @ts-expect-error
+					to={link.link as ParseRoute<typeof routeTree>['fullPath']}
+					target={link.isExternalLink ? '_blank' : '_self'}
+					{...props}
+				>
+					{link.title}
+				</Link>
+			</li>
+		)
 	}
-	return (
-		<li className='menu__item'>
-			<Link
-				className={cn('menu__link')}
-				to={link.link as ParseRoute<typeof routeTree>['fullPath']}
-				target={link.isExternalLink ? '_blank' : '_self'}
-				{...props}
-			>
-				{link.title}
-			</Link>
-		</li>
-	)
 }
 
 export const Menu = () => {

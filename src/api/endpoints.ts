@@ -163,11 +163,11 @@ export const DirectoryMinimalTransport = {
 }
 
 export const InvitationCustomerEndpoints = {
-	AcceptInvitation: '/api/v1/_trading/organization/invite/:code/accept'
+	AcceptInvitation: '/api/v1/trading/organization/invite/:code/accept'
 }
 
 export const DirectoryLotFilterCategories = {
-	LotFilterCategories: '/api/v1/_trading/lot/filters/category/:id'
+	LotFilterCategories: '/api/v1/trading/lot/filters/category/:id'
 }
 
 export const DirectoryCitiesEndpoints = {
@@ -185,14 +185,14 @@ export const DirectoryMeasuresEndpoints = {
 }
 
 export const DirectoryTradingFileStatusesEndpoints = {
-	GetTradingFileStatusesList: '/api/v1/reference/_trading/file/statuses'
+	GetTradingFileStatusesList: '/api/v1/reference/trading/file/statuses'
 }
 
 export const DirectoryTradingTypeEndpoints = {
-	GetTradingType: '/api/v1/reference/_trading/type/list',
-	CreateTradingType: '/api/v1/reference/_trading/type/create',
-	UpdateTradingType: '/api/v1/reference/_trading/type/update',
-	DeleteTradingType: '/api/v1/reference/_trading/type/:id'
+	GetTradingType: '/api/v1/reference/trading/type/list',
+	CreateTradingType: '/api/v1/reference/trading/type/create',
+	UpdateTradingType: '/api/v1/reference/trading/type/update',
+	DeleteTradingType: '/api/v1/reference/trading/type/:id'
 }
 
 export const DirectoryServerInfoEndpoints = {
@@ -225,48 +225,48 @@ export const CategoriesEndpoints = {
 
 export const TradingEndpoints = {
 	ListTrading: '/api/v1/tradings',
-	HistoryAdminDAList: '/api/v1/_trading/:id/dutch/history',
-	TradingDutchAgentAdminLots: '/api/v1/_trading/:id/dutch/lots',
-	UpdateTrading: '/api/v1/_trading/update/passport',
-	DeleteTrading: '/api/v1/_trading/delete/:id',
-	ListModelTrading: '/api/v1/_trading/model/list',
-	ListModelTypes: '/api/v1/_trading/type/list',
-	OwnerCreateList: '/api/v1/_trading/created_org/list',
-	ListSpecificationsTrading: '/api/v1/_trading/specifications/list',
+	HistoryAdminDAList: '/api/v1/trading/:id/dutch/history',
+	TradingDutchAgentAdminLots: '/api/v1/trading/:id/dutch/lots',
+	UpdateTrading: '/api/v1/trading/update/passport',
+	DeleteTrading: '/api/v1/trading/delete/:id',
+	ListModelTrading: '/api/v1/trading/model/list',
+	ListModelTypes: '/api/v1/trading/type/list',
+	OwnerCreateList: '/api/v1/trading/created_org/list',
+	ListSpecificationsTrading: '/api/v1/trading/specifications/list',
 	ListTradingStations: '/api/v1/station/',
 	ListTradingOffice: 'api/v1/reference/regional-office/list',
 	ListAffiliations: '/api/v1/reference/regional-office/:id/affiliates',
-	CreatePassportTrading: '/api/v1/_trading/create/passport',
-	ListTypeTrading: '/api/v1/reference/_trading/type/list',
-	ImportLotTrading: '/api/v1/_trading/lot/forest/import',
-	ExportLotTrading: '/api/v1/_trading/lot/forest/export',
-	UpdateLotTrading: '/api/v1/_trading/lot/update',
-	UpdateLotLumberTrading: '/api/v1/_trading/lot/lumber/update',
+	CreatePassportTrading: '/api/v1/trading/create/passport',
+	ListTypeTrading: '/api/v1/reference/trading/type/list',
+	ImportLotTrading: '/api/v1/trading/lot/forest/import',
+	ExportLotTrading: '/api/v1/trading/lot/forest/export',
+	UpdateLotTrading: '/api/v1/trading/lot/update',
+	UpdateLotLumberTrading: '/api/v1/trading/lot/lumber/update',
 	AgentAgreeDa:
-		'/api/v1/_trading/dutch/preparing/:tradingId/agent/permission/update',
-	ListLotTrading: '/api/v1/_trading/:id/lots',
+		'/api/v1/trading/dutch/preparing/:tradingId/agent/permission/update',
+	ListLotTrading: '/api/v1/trading/:id/lots',
 	TradingWarningFile: '/api/v1/reference/transport-part/export?id_trading=:id',
-	DeleteAllLotTrading: '/api/v1/_trading/:id/lots/delete',
-	ListRequestTrading: '/api/v1/_trading/:id/requests',
-	ListRequestTradingDelete: '/api/v1/_trading/request/delete',
-	ListRequestTradingDecline: '/api/v1/_trading/requests/decline',
-	UpdateRequestTrading: '/api/v1/_trading/request/update',
-	UpdateRequestsListTrading: '/api/v1/_trading/requests/update',
-	AcceptAllTradingRequest: '/api/v1/_trading/requests/admit/all/:id',
-	ExportRequestsTrading: '/api/v1/_trading/:id/requests/export',
-	ChoosingSolutionTable: '/api/v1/_trading/:id/results',
-	ExportAdmissionAgent: '/api/v1/_trading/admittance/generate',
+	DeleteAllLotTrading: '/api/v1/trading/:id/lots/delete',
+	ListRequestTrading: '/api/v1/trading/:id/requests',
+	ListRequestTradingDelete: '/api/v1/trading/request/delete',
+	ListRequestTradingDecline: '/api/v1/trading/requests/decline',
+	UpdateRequestTrading: '/api/v1/trading/request/update',
+	UpdateRequestsListTrading: '/api/v1/trading/requests/update',
+	AcceptAllTradingRequest: '/api/v1/trading/requests/admit/all/:id',
+	ExportRequestsTrading: '/api/v1/trading/:id/requests/export',
+	ChoosingSolutionTable: '/api/v1/trading/:id/results',
+	ExportAdmissionAgent: '/api/v1/trading/admittance/generate',
 	ExportMoneyDistribution: '/api/v1/distribution-funds/archive',
 	ExportAgentTradingRequests: '/api/v1/processing-fee/admittance/generate',
-	InviteOrganizationTrading: '/api/v1/_trading/organization/invite',
-	InvitesListTrading: '/api/v1/_trading/:id/invites',
-	GetViewTrading: '/api/v1/_trading/view/:id',
-	TradingLotsBets: '/api/v1/_trading/:id/lots/bet',
-	TradingLotsBetsShowAllForDA: '/api/v1/_trading/:id/lots/bet',
-	TradingLotsBetsCertificates: '/api/v1/_trading/:id/certificates/lots',
-	TradingLotsBetsContract: '/api/v1/_trading/:id/lots/contract',
-	BlockUnblockLotTrading: '/api/v1/_trading/lot/:id/toggle',
-	ExportRequestInvoiceTrading: 'api/v1/_trading/request/invoice/create',
+	InviteOrganizationTrading: '/api/v1/trading/organization/invite',
+	InvitesListTrading: '/api/v1/trading/:id/invites',
+	GetViewTrading: '/api/v1/trading/view/:id',
+	TradingLotsBets: '/api/v1/trading/:id/lots/bet',
+	TradingLotsBetsShowAllForDA: '/api/v1/trading/:id/lots/bet',
+	TradingLotsBetsCertificates: '/api/v1/trading/:id/certificates/lots',
+	TradingLotsBetsContract: '/api/v1/trading/:id/lots/contract',
+	BlockUnblockLotTrading: '/api/v1/trading/lot/:id/toggle',
+	ExportRequestInvoiceTrading: 'api/v1/trading/request/invoice/create',
 	//contract page
 	DeliverySheduleNotificationCount: '/api/v1/notifications/:id/part/count',
 	DeliverySheduleList: '/api/v1/part/:id/list',
@@ -294,7 +294,7 @@ export const TradingEndpoints = {
 	ExecutionList: '/api/v1/part/realization/:id/list',
 	ExecutionDownload: '/api/v1/part/realization/file/:id/downlaod/archive',
 	ExecutionUploadToFile: '/api/v1/part/realization/file/upload',
-	//_trading activity page
+	//trading activity page
 	TradingActivityFilter: '/api/v1/analytics/filter/list',
 	AnalyticsList: '/api/v1/analytics/activity/list',
 	AnalyticsReportDownload: '/api/v1/analytics/activity/export',
@@ -352,178 +352,175 @@ export const TradingEndpoints = {
 	CabinetNotificationsAccreditListDetailsUpdate:
 		'/api/v1/alert/processing/update',
 	//contract
-	TradingsContractList: '/api/v1/_trading/contracts',
+	TradingsContractList: '/api/v1/trading/contracts',
 	FetchDeliveryScheduleControl: '/api/v1/delivery/schedule/control/data',
 	GenerateDeliveryScheduleControl:
 		'/api/v1/delivery/schedule/generate/control/data',
 	DownloadDeliveryScheduleControl:
 		'/api/v1/delivery/schedule/download/control/data',
-	TradingsContractComments: '/api/v1/_trading/contract/comments/:id',
-	TradingsContractCommentsCreate: '/api/v1/_trading/contract/comment/create',
-	TradingsContractCommentsDelete:
-		'/api/v1/_trading/contract/comment/delete/:id',
-	TradingsContractCommentsUpdate: '/api/v1/_trading/contract/comment/update',
+	TradingsContractComments: '/api/v1/trading/contract/comments/:id',
+	TradingsContractCommentsCreate: '/api/v1/trading/contract/comment/create',
+	TradingsContractCommentsDelete: '/api/v1/trading/contract/comment/delete/:id',
+	TradingsContractCommentsUpdate: '/api/v1/trading/contract/comment/update',
 	TradingsContractEmailNotificationsSend:
-		'/api/v1/_trading/contracts/emails/send',
-	TradingsContractNotificationsList: '/api/v1/_trading/contracts/:id/emails',
-	TradingsContract: '/api/v1/_trading/contracts/:id',
+		'/api/v1/trading/contracts/emails/send',
+	TradingsContractNotificationsList: '/api/v1/trading/contracts/:id/emails',
+	TradingsContract: '/api/v1/trading/contracts/:id',
 	OfficeList: '/api/v1/filter/office',
-	TradingAuctionCertificatesList: '/api/v1/_trading/certificates',
+	TradingAuctionCertificatesList: '/api/v1/trading/certificates',
 	TradingAuctionCertificateFile:
-		'/api/v1/_trading/certificates/:idCertificate/files/:idFile',
+		'/api/v1/trading/certificates/:idCertificate/files/:idFile',
 	TradingAuctionCertificateEmailNotificationsSend:
-		'/api/v1/_trading/certificates/emails/send',
+		'/api/v1/trading/certificates/emails/send',
 	TradingAuctionCertificatNotificationsList:
-		'/api/v1/_trading/certificates/:id/emails',
-	UpdateTradingAuctionCertificate: '/api/v1/_trading/certificates/update',
+		'/api/v1/trading/certificates/:id/emails',
+	UpdateTradingAuctionCertificate: '/api/v1/trading/certificates/update',
 	TradingAuctionContractFile:
-		'/api/v1/_trading/contracts/:idContract/files/:idFile',
-	UpdateTradingAuctionContract: '/api/v1/_trading/contracts/update',
-	PrepareLotEod: '/api/v1/eod/_trading/:id/lot/send',
-	SendLotEod: '/api/v1/eod/_trading/send/:id',
-	ClosedPrepareLots: '/api/v1/eod/_trading/:id/lot/done',
+		'/api/v1/trading/contracts/:idContract/files/:idFile',
+	UpdateTradingAuctionContract: '/api/v1/trading/contracts/update',
+	PrepareLotEod: '/api/v1/eod/trading/:id/lot/send',
+	SendLotEod: '/api/v1/eod/trading/send/:id',
+	ClosedPrepareLots: '/api/v1/eod/trading/:id/lot/done',
 	EodRegions: '/api/v1/eod/regions',
 	GetRegionsTrading: '/api/v1/eod/seller/get',
 	GetRegionsInitiator: '/api/v1/region/organization/list/:id',
 	SellerRegionTrading: '/api/v1/eod/region/:id/organization',
-	EodPrepareLotDownload: '/api/v1/eod/_trading/create/:id',
+	EodPrepareLotDownload: '/api/v1/eod/trading/create/:id',
 	LotUpdateEOD: '/api/v1/eod/lot/update',
 	OrganizationListTrading: '/api/v1/organization/:id',
-	GetUnsoldLots: '/api/v1/_trading/lots/unsold',
-	GetUnsoldLotsFilters: '/api/v1/_trading/lot/filters',
-	ExportTradingWinnersToFile: '/api/v1/_trading/:id/generate/winners',
-	ExportTradingLosersToFile: '/api/v1/_trading/:id/generate/losers',
-	ExportTradingUnsoldLots: '/api/v1/_trading/lots/unsold/download',
-	ExportTradingSummaryToFile: '/api/v1/_trading/:id/generate/summary',
-	ExportTrading1CToFile: '/api/v1/_trading/:id/generate/ones',
-	ExportTradingArchiveToFile: '/api/v1/_trading/:id/archive/list',
+	GetUnsoldLots: '/api/v1/trading/lots/unsold',
+	GetUnsoldLotsFilters: '/api/v1/trading/lot/filters',
+	ExportTradingWinnersToFile: '/api/v1/trading/:id/generate/winners',
+	ExportTradingLosersToFile: '/api/v1/trading/:id/generate/losers',
+	ExportTradingUnsoldLots: '/api/v1/trading/lots/unsold/download',
+	ExportTradingSummaryToFile: '/api/v1/trading/:id/generate/summary',
+	ExportTrading1CToFile: '/api/v1/trading/:id/generate/ones',
+	ExportTradingArchiveToFile: '/api/v1/trading/:id/archive/list',
 	ExportTradingArchiveToFileDeliverySchedule:
-		'/api/v1/_trading/agreed/part/_trading/:id/list',
-	DownloadTradingArchiveToFile: '/api/v1/_trading/:id/archive/download',
+		'/api/v1/trading/agreed/part/trading/:id/list',
+	DownloadTradingArchiveToFile: '/api/v1/trading/:id/archive/download',
 	downloadTradingArchiveToFileDeliverySchedule:
-		'/api/v1/_trading/agreed/part/_trading/:id/download/all',
-	GenerateTradingArhive: '/api/v1/_trading/:id/archive/update',
+		'/api/v1/trading/agreed/part/trading/:id/download/all',
+	GenerateTradingArhive: '/api/v1/trading/:id/archive/update',
 	ExportTradingLotsBetHistoryToFile:
-		'/api/v1/_trading/:id/lots/bet/history/export',
+		'/api/v1/trading/:id/lots/bet/history/export',
 	ExportTradingDutchLotsBetHistoryToFile:
-		'/api/v1/_trading/:id/dutch/history/export',
-	DeleteSingleLot: '/api/v1/_trading/:id/lot/:idLot/:idSubLot',
-	ContractFileReport: '/api/v1/_trading/contracts/sign/export',
-	CabinetRegisterRequestList: '/api/v1/_trading/request/owner/list',
-	CabinetRegisterRequestAdminDetail: '/api/v1/_trading/request/owner/detail',
-	ImportDocTrading: '/api/v1/_trading/request/owner/additional/file/add',
-	GetDocTradingList: '/api/v1/_trading/request/owner/{id}/additional/file',
+		'/api/v1/trading/:id/dutch/history/export',
+	DeleteSingleLot: '/api/v1/trading/:id/lot/:idLot/:idSubLot',
+	ContractFileReport: '/api/v1/trading/contracts/sign/export',
+	CabinetRegisterRequestList: '/api/v1/trading/request/owner/list',
+	CabinetRegisterRequestAdminDetail: '/api/v1/trading/request/owner/detail',
+	ImportDocTrading: '/api/v1/trading/request/owner/additional/file/add',
+	GetDocTradingList: '/api/v1/trading/request/owner/{id}/additional/file',
 	GetDocOwnerTradingRequestList:
-		'/api/v1/_trading/lot/request/owner/{lotId}/additional/file',
-	DeleteDocTradingList: '/api/v1/_trading/request/owner/additional/file/delete',
-	DownloadDocTradingFile: '/api/v1/_trading/request/owner/additional/file',
-	ExportArchiveRegisterReques: '/api/v1/_trading/request/file/archive',
-	ExportArchiveRegisterRequesOwner: '/api/v1/_trading/request/file',
-	CabinetRegisterRequestGetStatus: '/api/v1/_trading/request/history',
-	TradingRequestOwnerBlackListTogle: '/api/v1/_trading/request/owner/togle',
-	TradingAvailabilityList: '/api/v1/_trading/:id/availability/list'
+		'/api/v1/trading/lot/request/owner/{lotId}/additional/file',
+	DeleteDocTradingList: '/api/v1/trading/request/owner/additional/file/delete',
+	DownloadDocTradingFile: '/api/v1/trading/request/owner/additional/file',
+	ExportArchiveRegisterReques: '/api/v1/trading/request/file/archive',
+	ExportArchiveRegisterRequesOwner: '/api/v1/trading/request/file',
+	CabinetRegisterRequestGetStatus: '/api/v1/trading/request/history',
+	TradingRequestOwnerBlackListTogle: '/api/v1/trading/request/owner/togle',
+	TradingAvailabilityList: '/api/v1/trading/:id/availability/list'
 }
 
 export const TradingCustomerEndpoints = {
-	CreateRequestLotCustomerTrading: '/api/v1/_trading/request/create',
-	DeleteAllReqeustsCustomerTrading: '/api/v1/_trading/request/delete',
+	CreateRequestLotCustomerTrading: '/api/v1/trading/request/create',
+	DeleteAllReqeustsCustomerTrading: '/api/v1/trading/request/delete',
 	ListTradingCustomer: '/api/v1/tradings/customer',
-	ListRequestTradingCustomer: '/api/v1/_trading/:id/buyer/requests',
-	GetViewCustomerTrading: '/api/v1/_trading/view/:id/customer',
-	GetViewCustomerParticipationTrading: '/api/v1/_trading/:id/availability',
-	GetStartTradeLot: '/api/v1/_trading/dutch/lot/:id/start',
-	GetEndTradeLot: '/api/v1/_trading/dutch/lot/:id/end',
-	GetSellerRefreshTimer: '/api/v1/_trading/dutch/lot/:id/expired-timer',
-	TradingLotsBetsCustomer: '/api/v1/_trading/:id/lots/bet/customer',
-	GetViewTradingCustomer: '/api/v1/_trading/view/:id/customer',
-	TradingLotBetCreate: '/api/v1/_trading/lot/bet/create',
-	TradingCurrentSelectData: '/api/v1/_trading/dutch/request/create',
-	TradingCurrentSelectDataDecline: '/api/v1/_trading/dutch/request/remove',
-	TradingResultsToFileCustomer:
-		'/api/v1/_trading/:id/generate/results/customer',
+	ListRequestTradingCustomer: '/api/v1/trading/:id/buyer/requests',
+	GetViewCustomerTrading: '/api/v1/trading/view/:id/customer',
+	GetViewCustomerParticipationTrading: '/api/v1/trading/:id/availability',
+	GetStartTradeLot: '/api/v1/trading/dutch/lot/:id/start',
+	GetEndTradeLot: '/api/v1/trading/dutch/lot/:id/end',
+	GetSellerRefreshTimer: '/api/v1/trading/dutch/lot/:id/expired-timer',
+	TradingLotsBetsCustomer: '/api/v1/trading/:id/lots/bet/customer',
+	GetViewTradingCustomer: '/api/v1/trading/view/:id/customer',
+	TradingLotBetCreate: '/api/v1/trading/lot/bet/create',
+	TradingCurrentSelectData: '/api/v1/trading/dutch/request/create',
+	TradingCurrentSelectDataDecline: '/api/v1/trading/dutch/request/remove',
+	TradingResultsToFileCustomer: '/api/v1/trading/:id/generate/results/customer',
 	TradingResultsToFileCustomerNew:
-		'/api/v1/_trading/:id/certificate/files/status',
+		'/api/v1/trading/:id/certificate/files/status',
 	TradingResultsUploadSignedOffer: '/api/v1/signature/trading_request/upload',
 	TradingResultsUploadSignedDeleteOffer:
 		'/api/v1/signature/trading_request/delete/upload',
-	// ExportRequestsTradingCustomer: '/api/v1/_trading/:id/requests/export/customer',
-	ExportRequestsTradingCustomer: '/api/v1/_trading/generate/requests/customer',
+	// ExportRequestsTradingCustomer: '/api/v1/trading/:id/requests/export/customer',
+	ExportRequestsTradingCustomer: '/api/v1/trading/generate/requests/customer',
 	ExportRequestsDeleteTradingCustomer:
-		'/api/v1/_trading/:id/generate/requests/delete/customer',
+		'/api/v1/trading/:id/generate/requests/delete/customer',
 	GenerateRequestsCustomerDelete:
-		'/api/v1/_trading/generate/requests/customer/delete',
+		'/api/v1/trading/generate/requests/customer/delete',
 	ExportRequestsTradingCustomerArchive:
-		'/api/v1/_trading/:id/generate/requests/customer/archive',
+		'/api/v1/trading/:id/generate/requests/customer/archive',
 	ExportDocContractTradingCustomer:
-		'/api/v1/_trading/generate/contract/:id/customer',
+		'/api/v1/trading/generate/contract/:id/customer',
 	ExportDocContractTradingCustomerNew:
-		'/api/v1/_trading/:id/contract/files/status',
+		'/api/v1/trading/:id/contract/files/status',
 	ExportDocDeliveryTradingCustomer:
-		'/api/v1/_trading/:id/agreed_part/files/status',
+		'/api/v1/trading/:id/agreed_part/files/status',
 	ExportInvoiceComissionTradingCustomer:
-		'/api/v1/_trading/:id/generate/invoice/commission', // lumber only
+		'/api/v1/trading/:id/generate/invoice/commission', // lumber only
 	ExportInvoiceWarrantyToFileCustomer:
-		'/api/v1/_trading/:id/invoice-request/files',
-	GetValueIsLotWin: '/api/v1/_trading/:id/winner',
-	ListLotTradingCustomer: '/api/v1/_trading/:id/lots',
+		'/api/v1/trading/:id/invoice-request/files',
+	GetValueIsLotWin: '/api/v1/trading/:id/winner',
+	ListLotTradingCustomer: '/api/v1/trading/:id/lots',
 	ListMyTradingsCustomer: '/api/v1/tradings/customer/my',
-	MarginalCostCustomer: '/api/v1/_trading/dutch/lot/marginal/cost',
-	SaveMarginalCostCustomer: '/api/v1/_trading/dutch/lot/marginal/save',
-	PreparingSaveMarginalCostCustomer:
-		'/api/v1/_trading/dutch/preparing/lot/save',
+	MarginalCostCustomer: '/api/v1/trading/dutch/lot/marginal/cost',
+	SaveMarginalCostCustomer: '/api/v1/trading/dutch/lot/marginal/save',
+	PreparingSaveMarginalCostCustomer: '/api/v1/trading/dutch/preparing/lot/save',
 	PreparingDeleteMarginalCostCustomer:
-		'/api/v1/_trading/dutch/preparing/lot/:lotId/delete',
+		'/api/v1/trading/dutch/preparing/lot/:lotId/delete',
 	TradingDeleteMarginalCostCustomer:
-		'/api/v1/_trading/dutch/lot/marginal/:lotId/delete',
+		'/api/v1/trading/dutch/lot/marginal/:lotId/delete',
 
-	TradingInitRequestOwnerCreate: '/api/v1/_trading/init/request/owner/create',
-	TradingInitRequestOwnerSigned: '/api/v1/_trading/init/request/owner/signed',
+	TradingInitRequestOwnerCreate: '/api/v1/trading/init/request/owner/create',
+	TradingInitRequestOwnerSigned: '/api/v1/trading/init/request/owner/signed',
 	TradingInitRequestOwnerCanceled:
-		'/api/v1/_trading/init/request/owner/canceled',
+		'/api/v1/trading/init/request/owner/canceled',
 	TradingGenerateInitRequestOwnerCustomer:
-		'/api/v1/_trading/generate/init/requests/owner/customer',
+		'/api/v1/trading/generate/init/requests/owner/customer',
 	TradingGenerateInitRequestOwnerIDCustomerDelete:
-		'/api/v1/_trading/generate/init/requests/owner/{id}/customer/delete',
+		'/api/v1/trading/generate/init/requests/owner/{id}/customer/delete',
 
-	TradingRequestsOwnerManagementCreate: '/api/v1/_trading/request/owner/create',
+	TradingRequestsOwnerManagementCreate: '/api/v1/trading/request/owner/create',
 	TradingRequestsOwnerGenerate:
-		'/api/v1/_trading/generate/requests/owner/customer',
-	TradingGetRequestsOwnerManagement: '/api/v1/_trading/request/owner/current',
-	TradingSignedOffer: '/api/v1/_trading/request/owner/signed',
-	TradingCanceledSignedOffer: '/api/v1/_trading/request/owner/canceled',
+		'/api/v1/trading/generate/requests/owner/customer',
+	TradingGetRequestsOwnerManagement: '/api/v1/trading/request/owner/current',
+	TradingSignedOffer: '/api/v1/trading/request/owner/signed',
+	TradingCanceledSignedOffer: '/api/v1/trading/request/owner/canceled',
 	TradingDeleteSignedOffer:
-		'/api/v1/_trading/generate/requests/owner/{id}/customer/delete',
-	TradingUpdateOfferGenerate: '/api/v1/_trading/request/owner/update/generate',
-	TradingUpdateOfferSave: '/api/v1/_trading/request/owner/update/save',
+		'/api/v1/trading/generate/requests/owner/{id}/customer/delete',
+	TradingUpdateOfferGenerate: '/api/v1/trading/request/owner/update/generate',
+	TradingUpdateOfferSave: '/api/v1/trading/request/owner/update/save',
 
 	InvoiceForPaymentGenerate: '/api/v1/part/invoice/file/generate',
 	InvoiceForPaymentCreate: '/api/v1/part/invoice/create'
 }
 
 export const TradingDutchCustomerEndpoints = {
-	GetSelectDataDutch: '/api/v1/_trading/dutch/lot/:id/offers',
-	TradingDutchLotsBetsCustomer: '/api/v1/_trading/:id/dutch/lots/customer',
-	TradingDutchSellerLotsBetsCustomer: '/api/v1/_trading/:id/dutch/lots/seller',
-	TradingDutchChangePriceButton: '/api/v1/_trading/dutch/lot/:id/reduce',
-	TradingDutchChangePriceCheckbox: '/api/v1/_trading/dutch/lot/:id/auto-reduce',
-	TradingDutchRequestList: '/api/v1/_trading/:id/dutch/requests/customer',
-	TradingDutchSellerAccept: '/api/v1/_trading/dutch/request/approved',
-	TradingDutchSellerDecline: '/api/v1/_trading/dutch/request/decline',
-	TradingDutchUpdateFee: '/api/v1/_trading/:id/dutch/fee/update'
+	GetSelectDataDutch: '/api/v1/trading/dutch/lot/:id/offers',
+	TradingDutchLotsBetsCustomer: '/api/v1/trading/:id/dutch/lots/customer',
+	TradingDutchSellerLotsBetsCustomer: '/api/v1/trading/:id/dutch/lots/seller',
+	TradingDutchChangePriceButton: '/api/v1/trading/dutch/lot/:id/reduce',
+	TradingDutchChangePriceCheckbox: '/api/v1/trading/dutch/lot/:id/auto-reduce',
+	TradingDutchRequestList: '/api/v1/trading/:id/dutch/requests/customer',
+	TradingDutchSellerAccept: '/api/v1/trading/dutch/request/approved',
+	TradingDutchSellerDecline: '/api/v1/trading/dutch/request/decline',
+	TradingDutchUpdateFee: '/api/v1/trading/:id/dutch/fee/update'
 }
 
 export const TradingAgentEndpoints = {
-	ExportTradingArchiveToFile: '/api/v1/_trading/:id/agent/generate/archive',
-	ExportTradingCommissionToFile: '/api/v1/_trading/agent/commission/generate',
-	ExportTradingFeeToFile: '/api/v1/_trading/agent/fee/generate'
+	ExportTradingArchiveToFile: '/api/v1/trading/:id/agent/generate/archive',
+	ExportTradingCommissionToFile: '/api/v1/trading/agent/commission/generate',
+	ExportTradingFeeToFile: '/api/v1/trading/agent/fee/generate'
 }
 
 export const TradingAnonymousEndpoints = {
 	TradingListAnonymous: '/api/anonymous/v1/tradings',
-	TradingViewAnonymous: '/api/anonymous/v1/_trading/view/:id',
-	TradingListLotsAnonymous: '/api/anonymous/v1/_trading/:id/lots',
-	TradingListLotsBetsAnonymous: '/api/anonymous/v1/_trading/:id/lots/bet',
-	TradingDAListLotsBetsAnonymous: '/api/anonymous/v1/_trading/:id/dutch/lots'
+	TradingViewAnonymous: '/api/anonymous/v1/trading/view/:id',
+	TradingListLotsAnonymous: '/api/anonymous/v1/trading/:id/lots',
+	TradingListLotsBetsAnonymous: '/api/anonymous/v1/trading/:id/lots/bet',
+	TradingDAListLotsBetsAnonymous: '/api/anonymous/v1/trading/:id/dutch/lots'
 }
 
 // UNIFIED ACCOUNT
@@ -535,7 +532,7 @@ export const SingleAccount = {
 	AccountListBalanceOrg: '/api/v1/single/accounts',
 	AccountListBalanceOrganization: '/api/v1/single/account/:id',
 	AccountListOrganizationTransactions: 'api/v1/organization/:id/transactions',
-	AccountListBlockedBidding: '/api/v1/_trading/transactions/:id',
+	AccountListBlockedBidding: '/api/v1/trading/transactions/:id',
 	AccountListBlockedContracts: '/api/v1/contract/transactions/:id',
 	AccountListTransactionType: '/api/v1/transaction/type/settings',
 	AccountTransactionTypeAutoUpdate: '/api/v1/transaction/settings/auto',
@@ -567,7 +564,7 @@ export const SingleAccount = {
 	Logs: '/api/v1/single/account/log',
 	GenerateRefundDoc: '/api/v1/outcome/file/generate',
 	UploadSignedRefundDoc: '/api/v1/signature/application/refund/upload',
-	DownloadTemplatesByID: '/api/v1/_trading/:id/lots/template'
+	DownloadTemplatesByID: '/api/v1/trading/:id/lots/template'
 }
 
 export const LogsEndpoints = {

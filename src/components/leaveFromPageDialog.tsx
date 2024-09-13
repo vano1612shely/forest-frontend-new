@@ -1,5 +1,5 @@
-import { ArrowBackIos } from '@mui/icons-material'
 import { Link, ParseRoute } from '@tanstack/react-router'
+import { ChevronLeft } from 'lucide-react'
 
 import {
 	AlertDialog,
@@ -25,13 +25,13 @@ export const LeaveFromPageDialog = ({
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
 				<Button className='flex items-center gap-2 mb-5'>
-					<ArrowBackIos fontSize='small' /> Назад
+					<ChevronLeft /> Назад
 				</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 				<AlertDialogHeader>
 					<AlertDialogTitle>Будь ласка, підтвердіть дію!</AlertDialogTitle>
-					<AlertDialogDescription className='text-[#1D1D1D]'>
+					<AlertDialogDescription>
 						Увага! Усі незбереженні данні будуть втрачені. Ви впевнені, що
 						бажаєте вийти зі сторінки?
 					</AlertDialogDescription>

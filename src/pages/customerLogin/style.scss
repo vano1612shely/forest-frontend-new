@@ -1,0 +1,10 @@
+.login {
+  &_bg {
+    @apply w-full min-h-screen flex;
+    background: url("@/assets/img/login_green_bg.png") no-repeat;
+    background-size: cover;
+  }
+  &__card {
+    @apply m-auto max-w-full basis-full md:max-w-[58%] md:basis-[58%] lg:max-w-[33%] lg:basis-[33%] p-[48px] flex flex-col gap-[36px];
+  }
+}

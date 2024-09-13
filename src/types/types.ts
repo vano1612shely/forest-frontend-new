@@ -28,3 +28,5 @@ export enum TradingCategoryType {
 	TYPE_EXPORT = 'TYPE_EXPORT',
 	TYPE_6M = 'TYPE_6M'
 }
+
+export type QualityClass = 'A' | 'B' | 'C' | 'D' | '-' | number

@@ -1,9 +1,9 @@
-import EventNoteIcon from '@mui/icons-material/EventNote'
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
+import { Bell, BellMinus, SquareChartGantt } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge.tsx'
+import { Button } from '@/components/ui/button.tsx'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -38,13 +38,17 @@ export const Notifications = () => {
 	if (data)
 		return (
 			<DropdownMenu>
-				<DropdownMenuTrigger>
-					<div className='relative'>
-						<NotificationsNoneIcon className='text-[#68737E]' />
-						<Badge className='text-[10px] absolute -top-2 -right-3 px-1 py-0'>
+				<DropdownMenuTrigger asChild>
+					<Button
+						className='relative'
+						variant='ghost'
+						size='icon'
+					>
+						<Bell className='w-5 h-5 text-foreground' />
+						<Badge className='text-[10px] absolute -top-1 -right-1 px-1 py-0'>
 							{data.result.total_unread > 99 ? '99+' : data.result.total_unread}
 						</Badge>
-					</div>
+					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className='w-[300px]'>
 					{data.result.result.map(message => {
@@ -55,11 +59,10 @@ export const Notifications = () => {
 									key={message.id}
 								>
 									<DropdownMenuItem className='flex gap-2 items-center'>
-										<EventNoteIcon
-											className='text-[#68737E]'
-											fontSize='small'
-										/>
-										<p className='truncate'>{generateName(message)}</p>
+										<SquareChartGantt className='w-4 h-4 text-foreground' />
+										<p className='truncate max-w-[250px]'>
+											{generateName(message)}
+										</p>
 									</DropdownMenuItem>
 								</Link>
 							)
@@ -69,11 +72,10 @@ export const Notifications = () => {
 									className='flex gap-2 items-center'
 									key={message.id}
 								>
-									<EventNoteIcon
-										className='text-[#68737E]'
-										fontSize='small'
-									/>
-									<p className='truncate'>{generateName(message)}</p>
+									<SquareChartGantt className='w-4 h-4' />
+									<p className='truncate max-w-[250px]'>
+										{generateName(message)}
+									</p>
 								</DropdownMenuItem>
 							)
 					})}
@@ -84,5 +86,5 @@ export const Notifications = () => {
 				</DropdownMenuContent>
 			</DropdownMenu>
 		)
-	else return <NotificationsNoneIcon className='text-[#68737E]' />
+	else return <BellMinus className='text-foreground w-5 h-5' />
 }

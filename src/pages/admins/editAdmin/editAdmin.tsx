@@ -27,14 +27,13 @@ import { cn, getStatusName } from '@/lib/utils.ts'
 export const EditAdminComponent = () => {
 	const { userId } = useParams({ strict: false })
 	const navigate = useNavigate()
-	const { data, error, isLoading, refetch } = useSuspenseQuery({
-		...adminDetailsQueryOptions(userId as string),
-		retry: 0
-	})
+	const { data, error, isLoading, refetch } = useSuspenseQuery(
+		adminDetailsQueryOptions(userId as string)
+	)
 	useEffect(() => {
 		if (axios.isAxiosError(error)) {
 			if (error.status === 404) {
-				navigate({ to: '/adminList' })
+				navigate({ to: '/admins' })
 			}
 		}
 	}, [error])
@@ -76,49 +75,53 @@ export const EditAdminComponent = () => {
 	}
 	return (
 		<>
-			<LeaveFromPageDialog to='/adminList' />
-			<h1 className='pageTitle'>Редагувати адміністратора</h1>
+			<LeaveFromPageDialog to='/admins' />
 			{isLoading ? (
 				<Card className='w-full'>
 					<Skeleton className='w-full h-[60vh]' />
 				</Card>
 			) : (
-				<Card className='w-full p-10 flex gap-5'>
-					<div className='flex flex-col items-center gap-5 p-5'>
-						<Avatar className='w-[50px] h-[50px] text-[24px]'>
-							<AvatarFallback className='bg-green-600 text-white'>
-								{data.result?.first_name[0]}
-								{data.result?.last_name[0]}
-							</AvatarFallback>
-						</Avatar>
-						<p
-							className={cn(
-								'p-3 rounded',
-								data.result.status === UserState.STATUS_ACTIVE
-									? 'bg-green-600/20 text-green-600'
-									: 'bg-orange-600/20 text-orange-600'
-							)}
-						>
-							{getStatusName(data.result.status)}
-						</p>
-						<ChangePasswordDialog data={data.result} />
-						<BlockUser
-							data={data.result}
-							refetch={refetch}
-						/>
-						<DeleteAdminDialog data={data.result} />
+				<Card className='page__table-card-full-size'>
+					<div className='page__table-header'>
+						<h1 className='page__title'>Редагувати адміністратора</h1>
 					</div>
-					<Separator
-						orientation='vertical'
-						className='h-auto'
-					/>
-					<div className='flex-1'>
-						<h3 className='text-center mb-5'>Загальна інформація</h3>
-						<EditAdminForm
-							type='update'
-							form={form}
-							onSubmit={onSubmit}
+					<div className='flex gap-5'>
+						<div className='flex flex-col items-center gap-5 p-5'>
+							<Avatar className='w-[50px] h-[50px] text-[24px]'>
+								<AvatarFallback className='bg-green-600 text-white'>
+									{data.result?.first_name[0]}
+									{data.result?.last_name[0]}
+								</AvatarFallback>
+							</Avatar>
+							<p
+								className={cn(
+									'p-3 rounded',
+									data.result.status === UserState.STATUS_ACTIVE
+										? 'bg-green-600/20 text-green-600'
+										: 'bg-orange-600/20 text-orange-600'
+								)}
+							>
+								{getStatusName(data.result.status)}
+							</p>
+							<ChangePasswordDialog data={data.result} />
+							<BlockUser
+								data={data.result}
+								refetch={refetch}
+							/>
+							<DeleteAdminDialog data={data.result} />
+						</div>
+						<Separator
+							orientation='vertical'
+							className='h-auto'
 						/>
+						<div className='flex-1'>
+							<h3 className='text-center mb-5'>Загальна інформація</h3>
+							<EditAdminForm
+								type='update'
+								form={form}
+								onSubmit={onSubmit}
+							/>
+						</div>
 					</div>
 				</Card>
 			)}

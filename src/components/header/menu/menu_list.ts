@@ -16,14 +16,12 @@ export type MenuListItem = {
 export const menuList: MenuListItem[] = [
 	{
 		title: 'Адміністратори',
-		link: '/adminList',
-		isExternalLink: false,
+		link: '/admins',
 		roles: [Roles.Administrator]
 	},
 	{
 		title: 'Організації',
 		link: '/organizations',
-		isExternalLink: false,
 		roles: [Roles.Administrator]
 	},
 	{
@@ -61,6 +59,11 @@ export const menuList: MenuListItem[] = [
 			Roles.Administrator,
 			Roles.Observer
 		]
+	},
+	{
+		title: 'Довідники',
+		link: '/referenceBooks',
+		roles: [Roles.Administrator]
 	},
 	{
 		title: 'Агенти',
