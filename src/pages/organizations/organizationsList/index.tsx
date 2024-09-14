@@ -32,7 +32,7 @@ export const OrganizationsListPage = () => {
 		organizationListOptions({
 			page: search.page,
 			search: search.search,
-			limit: search.limit || 500,
+			limit: search.limit || 100,
 			filters: [{ is_deleted: 0, usreou: search.usreou, status: search.status }]
 		})
 	)

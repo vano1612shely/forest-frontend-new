@@ -61,16 +61,6 @@ export interface ITradingUnsoldLot {
 	height?: string
 	humidity?: string
 }
-export interface IFetchTradingUnsoldListResult {
-	result: {
-		current_page: number
-		last_page: number
-		per_page: number
-		result: ITradingUnsoldLot[]
-		total: number
-	}
-	status: string
-}
 
 export interface IFetchUnsoldFileResult {
 	status: string

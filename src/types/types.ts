@@ -5,12 +5,12 @@ export type Title = {
 	title: string
 }
 
-export type TitleFromEod = {
+export type ITitleWithDescription = Title & {
+	description?: string
+}
+
+export type TitleFromEod = Title & {
 	id: string
-	language: {
-		lang_key: string
-	}
-	title: string
 }
 
 export interface IPhone {
@@ -30,3 +30,15 @@ export enum TradingCategoryType {
 }
 
 export type QualityClass = 'A' | 'B' | 'C' | 'D' | '-' | number
+
+export interface IResponsePagination<T> {
+	result: {
+		total: number
+		current_page: number
+		per_page: number
+		last_page: number
+		result: T
+	}
+	status: string
+	error?: string
+}

@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link, useRouter, useSearch } from '@tanstack/react-router'
 import { Row, getCoreRowModel, useReactTable } from '@tanstack/react-table'
-import _ from 'lodash'
 import { Plus } from 'lucide-react'
 import { useEffect } from 'react'
 

@@ -41,18 +41,6 @@ export interface OrganizationListItem {
 	value_owner_added_tax: number
 }
 
-export interface ListOrganizationsResponse {
-	status: string
-	result: {
-		total: number
-		current_page: number
-		per_page: number
-		last_page: number
-		result: OrganizationListItem[]
-	}
-	error?: string
-}
-
 export interface IOrganizationsListParams {
 	page?: number
 	search?: string

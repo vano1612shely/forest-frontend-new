@@ -1,11 +1,13 @@
 import { queryOptions } from '@tanstack/react-query'
 import { serialize } from 'object-to-formdata'
 
+import { IResponsePagination } from '@/types/types.ts'
+
 import { httpClient } from '@/api/api.ts'
 import { OrganizationEndpoints } from '@/api/endpoints.ts'
 import {
 	IOrganizationsListParams,
-	ListOrganizationsResponse
+	OrganizationListItem
 } from '@/api/organizations/types.tsx'
 
 export const fetchOrganizationsList = async (
@@ -15,7 +17,10 @@ export const fetchOrganizationsList = async (
 		...params,
 		filters: [...(params?.filters ? params.filters : [])]
 	})
-	return await httpClient.post<any, ListOrganizationsResponse>({
+	return await httpClient.post<
+		any,
+		IResponsePagination<OrganizationListItem[]>
+	>({
 		url: OrganizationEndpoints.GetListOrganization,
 		payload: formData
 	})

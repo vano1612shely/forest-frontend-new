@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Bell, BellMinus, SquareChartGantt } from 'lucide-react'
+import { Bell, BellMinus, BellOff, SquareChartGantt } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge.tsx'
 import { Button } from '@/components/ui/button.tsx'
@@ -45,17 +45,27 @@ export const Notifications = () => {
 						size='icon'
 					>
 						<Bell className='w-5 h-5 text-foreground' />
-						<Badge className='text-[10px] absolute -top-1 -right-1 px-1 py-0'>
-							{data.result.total_unread > 99 ? '99+' : data.result.total_unread}
-						</Badge>
+						{data.result.total_unread !== 0 && data.result.total_unread && (
+							<Badge className='text-[10px] absolute -top-1 -right-1 px-1 py-0'>
+								{data.result.total_unread > 99
+									? '99+'
+									: data.result.total_unread}
+							</Badge>
+						)}
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className='w-[300px]'>
+					{!data.result.result.length && (
+						<DropdownMenuItem className='flex gap-2 items-center'>
+							<BellOff className='w-4 h-4 text-foreground' />
+							Немає сповіщень
+						</DropdownMenuItem>
+					)}
 					{data.result.result.map(message => {
 						if (!message.contract)
 							return (
 								<Link
-									to='/adminList'
+									to='/admins'
 									key={message.id}
 								>
 									<DropdownMenuItem className='flex gap-2 items-center'>

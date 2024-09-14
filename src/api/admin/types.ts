@@ -23,18 +23,6 @@ export type Admin = {
 	status: UserState.STATUS_ACTIVE | UserState.STATUS_NOT_CONFIRMED
 }
 
-export interface ListAdminsResponse {
-	status: string
-	result: {
-		total: number
-		current_page: number
-		per_page: number
-		last_page: number
-		result: Admin[]
-	}
-	error?: string
-}
-
 export interface AdminDetails extends Admin {
 	confirm: any[]
 	phones: IPhone[]

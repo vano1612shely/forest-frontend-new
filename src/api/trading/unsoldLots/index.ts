@@ -1,10 +1,12 @@
 import { queryOptions } from '@tanstack/react-query'
 import { serialize } from 'object-to-formdata'
 
+import { IResponsePagination } from '@/types/types.ts'
+
 import { httpClient } from '@/api/api.ts'
 import { TradingEndpoints } from '@/api/endpoints.ts'
+import { OrganizationListItem } from '@/api/organizations/types.tsx'
 import {
-	IFetchTradingUnsoldListResult,
 	IFetchUnsoldFileResult,
 	ITradingListParamsUnsoldLots
 } from '@/api/trading/unsoldLots/types.ts'
@@ -15,7 +17,10 @@ const fetchTradingUnsoldLots = async (
 	const formData = serialize({
 		...params
 	})
-	return await httpClient.post<any, IFetchTradingUnsoldListResult>({
+	return await httpClient.post<
+		any,
+		IResponsePagination<OrganizationListItem[]>
+	>({
 		url: TradingEndpoints.GetUnsoldLots,
 		payload: formData
 	})

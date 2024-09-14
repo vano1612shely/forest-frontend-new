@@ -124,14 +124,18 @@ export const DirectoryTaxesEndpoints = {
 	GetTaxes: '/api/v1/taxationstypes',
 	CreateTaxes: '/api/v1/taxationtype/create',
 	UpdateTaxes: '/api/v1/taxationtype/update',
-	DeleteTaxes: '/api/v1/taxationtype/:id'
+	DeleteTaxes: (id: string) => {
+		return `/api/v1/taxationtype/${id}`
+	}
 }
 
 export const DirectoryOwnershipEndpoints = {
 	GetOwnership: '/api/v1/ownerships',
 	CreateOwnership: '/api/v1/ownership/create',
 	UpdateOwnership: '/api/v1/ownership/update',
-	DeleteOwnership: '/api/v1/ownership/:id'
+	DeleteOwnership: (id: string) => {
+		return `/api/v1/ownership/${id}`
+	}
 }
 
 export const DirectoryAreasEndpoints = {

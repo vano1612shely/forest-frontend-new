@@ -1,6 +1,8 @@
 import { queryOptions } from '@tanstack/react-query'
 import { serialize } from 'object-to-formdata'
 
+import { IResponsePagination } from '@/types/types.ts'
+
 import { httpClient } from '@/api/api.ts'
 import {
 	CreateEditAdminEndpoints,
@@ -9,13 +11,13 @@ import {
 } from '@/api/endpoints.ts'
 
 import {
+	Admin,
 	AdminDetailsResponse,
 	CreateAdminRequestBody,
 	CreateAdminResponse,
 	EditAdminRequestBody,
 	EditAdminResponse,
-	IUserListParams,
-	ListAdminsResponse
+	IUserListParams
 } from './types.ts'
 
 export const fetchAdminList = async (params: IUserListParams | null = null) => {
@@ -23,7 +25,7 @@ export const fetchAdminList = async (params: IUserListParams | null = null) => {
 		...params,
 		filters: [...(params?.filters ? params.filters : [])]
 	})
-	return await httpClient.post<any, ListAdminsResponse>({
+	return await httpClient.post<any, IResponsePagination<Admin[]>>({
 		url: UsersEndpoint.ListOfUsers,
 		payload: formData
 	})
